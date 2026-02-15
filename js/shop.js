@@ -8,6 +8,7 @@ if (window.location.href.match('resources.html') !== null || window.location.hre
     window.onload = fetchBorrowedHistory;
 }
 
+console.log(window.location.href);
 
 const hostname = window.location.hostname;
 
