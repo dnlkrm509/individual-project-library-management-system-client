@@ -1,0 +1,3 @@
+const config = {
+  STRIPE_PUBLIC_KEY: 'pk_test_51RfkhNG4Zi54PiYY4luOihcrh2KJSbMnL7yHrmNbHUJSBmxhCW2lk3EUjggmIj3T73cimKfhw4GymZ1gbYCphIbQ00oYpOCtl0'
+};

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/shop.js"></script>
+</head>
+<body>
+    <h2>Return Checkout</h2>
+    <p id="summary">Loading...</p>
+    <button onclick="payNow()" class="btn">Pay Now</button>
+    <script>
+        window.onload = async function () {
+            const token = localStorage.getItem('token');
+            const params = new URLSearchParams(window.location.search);
+            const resourceId = params.get('resourceId');
+        
+            if (!token || !resourceId) {
+                alert('Missing resource or not logged in.');
+                window.location.href = 'resources.html';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/checkout?resourceId=${resourceId}&returned=true`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+                });
+        
+                if (!response.ok) throw new Error('Failed to get checkout session');
+        
+                const data = await response.json();
+        
+                // Show payment summary:
+                document.getElementById('summary').innerText = `Amount to pay: $${(data.total / 100).toFixed(2)}`;
+        
+                // Save session ID for checkout button
+                window.stripeSessionId = data.sessionId;
+        
+            } catch (err) {
+                console.error(err);
+                alert('Error loading checkout info.');
+                window.location.href = 'borrow.html';
+            }
+        };
+    
+        function payNow() {
+        const stripe = Stripe(config.STRIPE_PUBLIC_KEY);
+    
+        stripe.redirectToCheckout({ sessionId: window.stripeSessionId })
+            .then(result => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Resource</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <nav>
+    <ul class="list" id="left-list">
+      <li><a href="../shop/resources.html">Resources</a></li>
+      <!-- Added authentication-based nav links dynatically -->
+    </ul>
+    <ul class="list" id="right-list">
+      <!-- Add login/signup or logout links here -->
+    </ul>
+  </nav>
+  <main>
+    <div class="edit-form">
+      <input type="hidden" id="resourceId" value="" />
+      
+      <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" placeholder="Title" required />
+      </div>
+      <div>
+        <label for="author">Author</label>
+        <input type="text" name="author" id="author" placeholder="Author Name" required />
+      </div>
+      <div>
+        <label for="publicationYear">Year</label>
+        <input type="number" name="publicationYear" id="publicationYear" placeholder="2023" required />
+      </div>
+      <div>
+        <label for="genre">Genre</label>
+        <input type="text" name="genre" id="genre" placeholder="Genre" required />
+      </div>
+      <div>
+        <button type="button" onclick="updateResource()" class="btn">Add Resource</button>
+      </div>
+    </div>
+  </main>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

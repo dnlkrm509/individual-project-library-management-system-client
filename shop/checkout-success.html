@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout Success</title>
+  <script src="../js/shop.js"></script>
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const resourceId = params.get('resourceId');
+    const returned = params.get('returned');
+    const token = localStorage.getItem('token');
+  
+    fetch(`${API_BASE_URL}/checkout/success?resourceId=${resourceId}&returned=${returned}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.body.innerHTML += `
+        <h1>Thank you!</h1>
+        <p>Your resource has been returned successfully.</p>
+        <a href="./resources.html">Back to Resources</a>
+      `;
+    })
+    .catch(err => {
+      document.body.innerHTML += `<p>Error: ${err.message}</p>`;
+    });
+  </script>
+</body>
+
+</html>
