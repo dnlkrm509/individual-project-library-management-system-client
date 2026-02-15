@@ -23,7 +23,7 @@ let API_BASE_URL;
 if (isLocal) {
   API_BASE_URL = "http://localhost:8080";
 } else {
-  API_BASE_URL = "https://full-stack-after-school-classes-server.onrender.com";
+  API_BASE_URL = "https://individual-project-library-management.onrender.com";
 }
 
 function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPreviousPage, hasNextPage }) {
