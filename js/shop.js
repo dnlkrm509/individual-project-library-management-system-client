@@ -123,7 +123,7 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
   let login = "../auth/login.html";
   let signup = "../auth/signup.html";
 
-  if (path.endsWith("/")) {
+  if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
    login = "./auth/login.html";
    signup = "./auth/signup.html";
   }
