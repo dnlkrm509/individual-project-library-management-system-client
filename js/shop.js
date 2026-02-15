@@ -1,4 +1,4 @@
-if (window.location.href.match('resources.html') !== null || window.location.href.match('index.html') !== null) {
+if (window.location.href.match('resources.html') !== null || window.location.href.match('index.html') !== null || window.location.href.match('') !== null) {
     window.onload = fetchResources;
 } else if (window.location.href.match('detail.html') !== null) {
     window.onload = fetchResource;
@@ -7,8 +7,6 @@ if (window.location.href.match('resources.html') !== null || window.location.hre
 } else if (window.location.href.match('borrow-history.html') !== null) {
     window.onload = fetchBorrowedHistory;
 }
-
-console.log(window.location.href);
 
 const hostname = window.location.hostname;
 
