@@ -120,12 +120,12 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
     }
   }
 
-  let login = "./auth/login.html";
-  let signup = "./auth/signup.html";
+  let login = "../auth/login.html";
+  let signup = "../auth/signup.html";
 
-  if (!path.endsWith("/")) {
-    login = "../auth/login.html";
-    signup = "../auth/signup.html";
+  if (path.endsWith("/")) {
+   login = "./auth/login.html";
+   signup = "./auth/signup.html";
   }
 
   if (!isAuthenticated) {
