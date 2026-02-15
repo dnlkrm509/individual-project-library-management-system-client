@@ -1,4 +1,4 @@
-if (window.location.href.match('resources.html') !== null) {
+if (window.location.href.match('resources.html') !== null || window.location.href.match('index.html') !== null) {
     window.onload = fetchResources;
 } else if (window.location.href.match('detail.html') !== null) {
     window.onload = fetchResource;
@@ -92,12 +92,24 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
 
   if (navLeftUl.getAttribute('data-rendered') === 'true') return;
 
+  let borrow = "./shop/borrow.html";
+  let history = "./shop/borrow-history.html";
+  let adminEdit = "./admin/edit-resource.html";
+  let adminResource = "./admin/resources.html";
+
+  if (window.location.href.match('index.html') === null) {
+    borrow = "./borrow.html";
+    history = "./borrow-history.html";
+    adminEdit = "../admin/edit-resource.html";
+    adminResource = "../admin/resources.html";
+  }
+
   if (isAuthenticated) {
     navLeftUl.insertAdjacentHTML('beforeend', `
-      <li><a href="./borrow.html" id="nav-1">Borrowed</a></li>
-      <li><a href="./borrow-history.html" id="nav-2">Borrow History</a></li>
-      <li><a href="../admin/edit-resource.html" id="nav-3">Add Resource</a></li>
-      <li><a href="../admin/resources.html" id="nav-4">Admin Resources</a></li>
+      <li><a href=${borrow} id="nav-1">Borrowed</a></li>
+      <li><a href=${history} id="nav-2">Borrow History</a></li>
+      <li><a href=${adminEdit} id="nav-3">Add Resource</a></li>
+      <li><a href=${adminResource} id="nav-4">Admin Resources</a></li>
     `);
     navLeftUl.setAttribute('data-rendered', 'true');
 
@@ -107,13 +119,21 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
     }
   }
 
+  let login = "./auth/login.html";
+  let signup = "./auth/signup.html";
+
+  if (window.location.href.match('index.html') === null) {
+    login = "../auth/login.html";
+    signup = "../auth/signup.html";
+  }
+
   if (!isAuthenticated) {
     navRightUl.innerHTML = `
       <li style="margin-right: 15px;">
-        <a href="../auth/login.html">Login</a>
+        <a href=${login}>Login</a>
       </li>
       <li>
-        <a href="../auth/signup.html">Signup</a>
+        <a href=${signup}>Signup</a>
       </li>
     `;
   } else {
