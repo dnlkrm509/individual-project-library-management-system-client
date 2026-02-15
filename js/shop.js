@@ -1,4 +1,6 @@
-if (window.location.href.match('resources.html') !== null || window.location.href.match('index.html') !== null || window.location.href.match('') !== null) {
+const path = window.location.pathname;
+
+if (path.endsWith("resources.html") || path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
     window.onload = fetchResources;
 } else if (window.location.href.match('detail.html') !== null) {
     window.onload = fetchResource;
