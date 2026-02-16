@@ -35,8 +35,9 @@
         
                 const data = await response.json();
         
+                console.log(data)
                 // Show payment summary:
-                document.getElementById('summary').innerText = `Amount to pay: $${(data.total / 100).toFixed(2)}`;
+                document.getElementById('summary').innerText = `Amount to pay: £${(data.total / 100).toFixed(2)}`;
         
                 // Save session ID for checkout button
                 window.stripeSessionId = data.sessionId;
