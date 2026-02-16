@@ -247,7 +247,13 @@ async function borrowResource(resourceId) {
       throw new Error(data.message || 'Borrow failed');
     }
 
-    window.location.href = './borrow.html';
+    let borrow = './borrow.html';
+
+    if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+      borrow = "./shop/borrow.html";
+    }
+
+    window.location.href = borrow;
 
   } catch (error) {
     console.error(error);
