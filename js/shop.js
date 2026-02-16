@@ -93,16 +93,16 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
 
   if (navLeftUl.getAttribute('data-rendered') === 'true') return;
 
-  let borrow = "./shop/borrow.html";
-  let history = "./shop/borrow-history.html";
-  let adminEdit = "./admin/edit-resource.html";
-  let adminResource = "./admin/resources.html";
+  let borrow = "./borrow.html";
+  let history = "./borrow-history.html";
+  let adminEdit = "../admin/edit-resource.html";
+  let adminResource = "../admin/resources.html";
 
-  if (window.location.href.match('index.html') === null) {
-    borrow = "./borrow.html";
-    history = "./borrow-history.html";
-    adminEdit = "../admin/edit-resource.html";
-    adminResource = "../admin/resources.html";
+  if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+    borrow = "./shop/borrow.html";
+    history = "./shop/borrow-history.html";
+    adminEdit = "./admin/edit-resource.html";
+    adminResource = "./admin/resources.html";
   }
 
   if (isAuthenticated) {
