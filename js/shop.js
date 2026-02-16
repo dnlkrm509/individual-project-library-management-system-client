@@ -174,6 +174,12 @@ async function fetchResources(page = 1) {
 
     const borrowedResources = data.loggedInUser?.borrowedItems?.resources || null;
 
+    let detail = "./detail.html";
+
+    if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+      detail = "./shop/detail.html";
+    }
+
     data.resources.forEach(resource => {
       const div = document.createElement('div');
       div.classList.add('item');
@@ -186,7 +192,7 @@ async function fetchResources(page = 1) {
         <p><strong>Year:</strong> ${resource.publicationYear}</p>
         <p><strong>Genre:</strong> ${resource.genre}</p>
         <div class="buttons">
-          <a class="btn" href="detail.html?id=${resource._id}">Details</a>
+          <a class="btn" href="${detail}?id=${resource._id}">Details</a>
           ${actionHTML}
         </div>
       `;
