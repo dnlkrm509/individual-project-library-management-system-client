@@ -231,6 +231,13 @@ async function borrowResource(resourceId) {
     return;
   }
 
+  
+  let borrow = './borrow.html';
+
+  if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+    borrow = "./shop/borrow.html";
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/borrow`, {
       method: 'POST',
@@ -245,12 +252,6 @@ async function borrowResource(resourceId) {
     
     if (!response.ok) {
       throw new Error(data.message || 'Borrow failed');
-    }
-
-    let borrow = './borrow.html';
-
-    if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-      borrow = "./shop/borrow.html";
     }
 
     window.location.href = borrow;
