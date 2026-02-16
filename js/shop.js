@@ -79,8 +79,14 @@ function getActionButtonHTML(resource, borrowedResources = null) {
     return `<p style="color: red; margin-top: 0.75rem;">Item is not available</p>`;
   }
 
+  let checkout = './checkout.html';
+
+  if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+    checkout = "./shop/checkout.html";
+  }
+
   if (hasBorrowed && !resource.availableStatus) {
-    return `<a class="btn" href="./checkout.html?resourceId=${resource._id}">Return</a>`;
+    return `<a class="btn" href="${checkout}?resourceId=${resource._id}">Return</a>`;
   }
 
   return `<button class="btn" onclick="borrowResource('${resource._id}')">Borrow</button>`;
