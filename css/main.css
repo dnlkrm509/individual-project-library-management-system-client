@@ -102,19 +102,6 @@ h5 {
     display: flex;
 }
 
-.btn {
-    padding: 0.7rem;
-    border-radius: 4px;
-    color: green;
-    font-weight: bold;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.btn:hover {
-    color: darkgreen;
-}
-
 .signup-form,
 .login-form,
 .resource-form,

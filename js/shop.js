@@ -50,7 +50,7 @@ function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPr
     html += `<a href="#" data-page="${lastPage}">${lastPage}</a>`;
   }
 
-  paginationContainer.innerHTML = html;
+  paginationContainer.innerHTML = `<div style="margin:auto">${html}</div>`;
 
   paginationContainer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', (event) => {
@@ -72,7 +72,7 @@ function getActionButtonHTML(resource, borrowedResources = null) {
   );
 
   if (!hasBorrowed && resource.availableStatus) {
-    return `<button class="btn" onclick="borrowResource('${resource._id}')">Borrow</button>`;
+    return `<button class="btn btn-outline-success" onclick="borrowResource('${resource._id}')">Borrow</button>`;
   }
 
   if (!hasBorrowed && !resource.availableStatus) {
@@ -86,10 +86,10 @@ function getActionButtonHTML(resource, borrowedResources = null) {
   }
 
   if (hasBorrowed && !resource.availableStatus) {
-    return `<a class="btn" href="${checkout}?resourceId=${resource._id}">Return</a>`;
+    return `<a class="btn btn-outline-info" href="${checkout}?resourceId=${resource._id}">Return</a>`;
   }
 
-  return `<button class="btn" onclick="borrowResource('${resource._id}')">Borrow</button>`;
+  return `<button class="btn btn-outline-success" onclick="borrowResource('${resource._id}')">Borrow</button>`;
 }
 
 
@@ -126,21 +126,13 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
     }
   }
 
-  let login = "../auth/login.html";
-  let signup = "../auth/signup.html";
-
-  if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-   login = "./auth/login.html";
-   signup = "./auth/signup.html";
-  }
-
   if (!isAuthenticated) {
     navRightUl.innerHTML = `
       <li style="margin-right: 15px;">
-        <a href=${login}>Login</a>
+        <a class="link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
       </li>
       <li>
-        <a href=${signup}>Signup</a>
+        <a class="link" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</a>
       </li>
     `;
   } else {
@@ -151,8 +143,6 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
     `;
   }
 }
-
-
 
 async function fetchResources(page = 1) {
   try {
@@ -198,7 +188,7 @@ async function fetchResources(page = 1) {
         <p><strong>Year:</strong> ${resource.publicationYear}</p>
         <p><strong>Genre:</strong> ${resource.genre}</p>
         <div class="buttons">
-          <a class="btn" href="${detail}?id=${resource._id}">Details</a>
+          <a class="btn text-success" href="${detail}?id=${resource._id}">Details</a>
           ${actionHTML}
         </div>
       `;
@@ -226,8 +216,14 @@ async function fetchResources(page = 1) {
 async function logout() {
 
   localStorage.removeItem('token');
+
+  let resources = "./resources.html";
+
+  if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+    resources = "./shop/resources.html";
+  }
   
-  window.location.href = './resources.html';
+  window.location.href = resources;
 }
 
 async function borrowResource(resourceId) {
@@ -353,12 +349,12 @@ async function fetchBorrowed() {
             div.innerHTML = `
                 <h3>${resource.title}</h3>
                 <hr />
-                <h5>Due Date: ${resource.dueDate || 'N/A'}</h5>
+                <h6 class="text-success">Due Date: ${resource.dueDate || 'N/A'}</h6>
                 <p><strong>Author:</strong> ${resource.author}</p>
                 <p><strong>Year:</strong> ${resource.publicationYear}</p>
                 <p><strong>Genre:</strong> ${resource.genre}</p>
                 <div class="buttons">
-                    <a class="btn" href="./checkout.html?resourceId=${resource._id}">Return</a>
+                    <a class="btn btn-outline-info" href="./checkout.html?resourceId=${resource._id}">Return</a>
                 </div>
             `;
 
@@ -411,7 +407,7 @@ async function fetchBorrowedHistory() {
       `).join('');
 
       recordDiv.innerHTML = `
-        <h3>#${record._id} - <button onclick="downloadInvoice('${record._id}')" class="btn" style="border: none;">Invoice</button></h3>
+        <h3>#${record._id} - <button class="btn text-success" onclick="downloadInvoice('${record._id}')" style="border: none;">Invoice</button></h3>
         <div class="item-grid">
           ${innerItems}
         </div>

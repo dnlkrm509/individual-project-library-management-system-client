@@ -83,10 +83,10 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
   if (!isAuthenticated) {
     navRightUl.innerHTML = `
       <li style="margin-right: 15px;">
-        <a href="../auth/login.html">Login</a>
+        <a class="link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
       </li>
       <li>
-        <a href="../auth/signup.html">Signup</a>
+        <a class="link" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</a>
       </li>
     `;
   } else {
@@ -132,8 +132,8 @@ async function fetchResources() {
         <p><strong>Year:</strong> ${resource.publicationYear}</p>
         <p><strong>Genre:</strong> ${resource.genre}</p>
         <div class="buttons">
-          <a class="btn" href="edit-resource.html?id=${resource._id}">Edit</a>
-          <button class="btn" type="button" onclick="deleteResource('${resource._id}')">Delete</button>
+          <a class="btn text-success" href="edit-resource.html?id=${resource._id}">Edit</a>
+          <button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button>
         </div>
       `;
 

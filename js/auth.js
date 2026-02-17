@@ -1,24 +1,7 @@
-const hostname = window.location.hostname;
-
-const isLocal =
-  hostname === "localhost" ||
-  hostname === "127.0.0.1" ||
-  hostname === "::1" ||
-  hostname.startsWith("192.168.") ||
-  hostname.startsWith("10.");
-
-let API_BASE_URL;
-
-if (isLocal) {
-  API_BASE_URL = "http://localhost:8080";
-} else {
-  API_BASE_URL = "https://individual-project-library-management.onrender.com";
-}
-
 async function login() {
     try {
-        const password = document.getElementById('password').value;
-        const email = document.getElementById('email').value;
+        const password = document.getElementById('password-login').value;
+        const email = document.getElementById('email-login').value;
 
         const response = await fetch(`${API_BASE_URL}/login`, {
             method: 'POST',
@@ -35,6 +18,7 @@ async function login() {
         }
 
         const loginData = await response.json();
+        console.log(loginData)
         localStorage.setItem('token', loginData.token);
         window.location.href = '../shop/resources.html';
 
@@ -43,9 +27,9 @@ async function login() {
 
 async function signup() {
     try {
-        const password = document.getElementById('password').value;
-        const email = document.getElementById('email').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+        const password = document.getElementById('password-signup').value;
+        const email = document.getElementById('email-signup').value;
+        const confirmPassword = document.getElementById('confirm-password-signup').value;
 
         const response = await fetch(`${API_BASE_URL}/signup`, {
             method: 'POST',
@@ -63,7 +47,7 @@ async function signup() {
             throw new Error('Failed to login.');
         }
 
-        window.location.href = './login.html';
+        window.location.href = './resources.html';
 
     } catch (error) {}
 };
