@@ -1,3 +1,6 @@
+const sortBy = document.getElementById("sort-by");
+const sortVal = document.getElementById("sort-val");
+
 const path = window.location.pathname;
 
 if (path.endsWith("resources.html") || path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
@@ -25,6 +28,34 @@ if (isLocal) {
   API_BASE_URL = "http://localhost:8080";
 } else {
   API_BASE_URL = "https://individual-project-library-management.onrender.com";
+}
+
+const compare = (a, b) => {
+  const sortByLocal = sortBy.value;
+  const sortValLocal = sortVal.value;
+  if (sortByLocal !== '') {
+    const sortKey = sortByLocal;
+    let valA = a[sortKey];
+    let valB = b[sortKey];
+    
+    if (!isNaN(valA) && !isNaN(valB)) {
+      valA = Number(valA);
+      valB = Number(valB);
+    }
+
+    if (sortValLocal === 'ASC') {
+      if (valA > valB) return 1;
+      if (valA < valB) return -1;
+    } else if (sortValLocal === 'DEC') {
+      if (valA > valB) return -1;
+      if (valA < valB) return 1;
+    }
+  }
+  return 0;
+}
+
+async function sort() {
+  await fetchResources();
 }
 
 function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPreviousPage, hasNextPage }) {
@@ -175,6 +206,8 @@ async function fetchResources(page = 1) {
     if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
       detail = "./shop/detail.html";
     }
+
+    data.resources.sort(compare);
 
     data.resources.forEach(resource => {
       const div = document.createElement('div');
