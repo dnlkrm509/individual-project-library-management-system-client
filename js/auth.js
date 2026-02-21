@@ -20,7 +20,12 @@ async function login() {
         const loginData = await response.json();
         console.log(loginData)
         localStorage.setItem('token', loginData.token);
-        window.location.href = '../shop/resources.html';
+        let resources = "../shop/resources.html";
+
+        if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+         resources = "./shop/resources.html";
+        }
+        window.location.href = resources;
 
     } catch (error) {}
 };
@@ -47,7 +52,12 @@ async function signup() {
             throw new Error('Failed to login.');
         }
 
-        window.location.href = './resources.html';
+        let resources = "../shop/resources.html";
+
+        if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+          resources = "./shop/resources.html";
+        }
+        window.location.href = resources;
 
     } catch (error) {}
 };
