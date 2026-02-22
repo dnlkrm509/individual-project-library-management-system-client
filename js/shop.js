@@ -6,7 +6,7 @@ const searchInput = document.getElementById("search");
 const path = window.location.pathname;
 
 if (path.endsWith("resources.html") || path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-    window.onload = fetchResources;
+    window.onload = search;
 } else if (window.location.href.match('detail.html') !== null) {
     window.onload = fetchResource;
 } else if (window.location.href.match('borrow.html') !== null) {
@@ -60,10 +60,10 @@ async function sort() {
   await search();
 }
 
-async function search() {
+async function search(page = 1) {
   const searchText = searchInput.value;
   try {
-    const response = await fetch(`${API_BASE_URL}/search/?search=${searchText}`, {
+    const response = await fetch(`${API_BASE_URL}/search/?page=${page}&search=${searchText}`, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
@@ -158,7 +158,7 @@ function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPr
     link.addEventListener('click', (event) => {
       event.preventDefault();
       const page = +event.target.getAttribute('data-page');
-      fetchResources(page);
+      search(page);
     });
   });
 }
@@ -245,77 +245,6 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
     `;
   }
 }
-
-async function fetchResources(page = 1) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/?page=${page}`, {
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch resources');
-    }
-
-    const data = await response.json();
-
-    navbarLinks(data.isAuthenticated, 0);
-
-    const container = document.getElementById('resource-grid');
-    container.innerHTML = '';
-
-    if (!data.resources || data.resources.length === 0) {
-      container.innerHTML = '<h1>No Resources Found!</h1>';
-      return;
-    }
-
-    const borrowedResources = data.loggedInUser?.borrowedItems?.resources || null;
-
-    let detail = "./detail.html";
-
-    if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-      detail = "./shop/detail.html";
-    }
-
-    data.resources.sort(compare);
-
-    data.resources.forEach(resource => {
-      const div = document.createElement('div');
-      div.classList.add('item');
-
-      const actionHTML = getActionButtonHTML(resource, borrowedResources);
-
-      div.innerHTML = `
-        <h3>${resource.title}</h3>
-        <p><strong>Author:</strong> ${resource.author}</p>
-        <p><strong>Year:</strong> ${resource.publicationYear}</p>
-        <p><strong>Genre:</strong> ${resource.genre}</p>
-        <div class="buttons">
-          <a class="btn text-success" href="${detail}?id=${resource._id}">Details</a>
-          ${actionHTML}
-        </div>
-      `;
-
-      container.appendChild(div);
-    });
-
-    // Render pagination
-    renderPagination({
-      currentPage: data.currentPage,
-      previousPage: data.previousPage,
-      nextPage: data.nextPage,
-      lastPage: data.lastPage,
-      hasPreviousPage: data.hasPreviousPage,
-      hasNextPage: data.hasNextPage,
-    });
-
-  } catch (error) {
-    console.error(error);
-    document.getElementById('resource-grid').innerHTML = '<h1>Error loading resources.</h1>';
-  }
-}
-
 
 async function logout() {
 
