@@ -1,6 +1,8 @@
 const sortBy = document.getElementById("sort-by");
 const sortVal = document.getElementById("sort-val");
 
+const searchInput = document.getElementById("search");
+
 const path = window.location.pathname;
 
 if (path.endsWith("resources.html") || path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
@@ -56,6 +58,11 @@ const compare = (a, b) => {
 
 async function sort() {
   await fetchResources();
+}
+
+async function search() {
+  const searchText = searchInput.value;
+  console.log(searchText)
 }
 
 function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPreviousPage, hasNextPage }) {

@@ -100,28 +100,49 @@
   </nav>
 
   <main>
-    <div class="col-sm-10" style="margin-top: 30px;">
-      <div style="display: inline;">
-        <label for="sort-by">Sort By: </label>
-        <select id="sort-by">
-            <option value="title">Title</option>
-            <option value="publicationYear">Publication Year</option>
-            <option value="author">Author</option>
-            <option value="genre">Genre</option>
-            <option value="availableStatus">Available Status</option>
-        </select>
-      </div>
-    </div>
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row align-items-center g2">
+            <div class="col-auto">
+              <label for="sort-by" class="col-form-label">Sort By: </label>
+            </div>
+            <div class="col">
+              <select id="sort-by" class="form-select">
+                  <option value="title">Title</option>
+                  <option value="publicationYear">Publication Year</option>
+                  <option value="author">Author</option>
+                  <option value="genre">Genre</option>
+                  <option value="availableStatus">Available Status</option>
+              </select>
+            </div>
+            <div class="col">
+              <select id="sort-val" class="form-select">
+                  <option value="ASC">Ascending</option>
+                  <option value="DEC">Descending</option>
+              </select>
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-outline-info" onclick="sort()" style="margin-bottom: 5px;">Sort</button>
+            </div>
 
-    <div class="col-sm-10" style="margin-top: 30px;">
-      <div style="display: inline;">
-        <label for="sort-val">Choose an option: </label>
-        <select id="sort-val">
-            <option value="ASC">Ascending</option>
-            <option value="DEC">Descending</option>
-        </select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row align-items-center g2">
+            <div class="col-auto">
+              <label for="search" class="col-form-label">Search: </label>
+            </div>
+            <div class="col">
+              <input id="search" class="form-control" placeholder="Search resources...">
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-outline-info" onclick="search()" style="margin-bottom: 5px;">Search</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <button type="button" class="btn btn-outline-info" onclick="sort()" style="margin-bottom: 5px;">Sort</button>
     </div>
     <div id="resource-grid" class="item-grid">
       <!-- Resources will be loaded here dynamically -->
