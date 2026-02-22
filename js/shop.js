@@ -57,12 +57,76 @@ const compare = (a, b) => {
 }
 
 async function sort() {
-  await fetchResources();
+  await search();
 }
 
 async function search() {
   const searchText = searchInput.value;
-  console.log(searchText)
+  try {
+    const response = await fetch(`${API_BASE_URL}/search/?search=${searchText}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch resources');
+    }
+
+    const data = await response.json();
+
+    const container = document.getElementById('resource-grid');
+    container.innerHTML = '';
+
+    if (!data.resources || data.resources.length === 0) {
+      container.innerHTML = '<h1>No Resources Found!</h1>';
+      return;
+    }
+
+    const borrowedResources = data.loggedInUser?.borrowedItems?.resources || null;
+
+    let detail = "./detail.html";
+
+    if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+      detail = "./shop/detail.html";
+    }
+
+    data.resources.sort(compare);
+
+    data.resources.forEach(resource => {
+      const div = document.createElement('div');
+      div.classList.add('item');
+
+      const actionHTML = getActionButtonHTML(resource, borrowedResources);
+
+      div.innerHTML = `
+        <h3>${resource.title}</h3>
+        <p><strong>Author:</strong> ${resource.author}</p>
+        <p><strong>Year:</strong> ${resource.publicationYear}</p>
+        <p><strong>Genre:</strong> ${resource.genre}</p>
+        <div class="buttons">
+          <a class="btn text-success" href="${detail}?id=${resource._id}">Details</a>
+          ${actionHTML}
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+
+    // Render pagination
+    renderPagination({
+      currentPage: data.currentPage,
+      previousPage: data.previousPage,
+      nextPage: data.nextPage,
+      lastPage: data.lastPage,
+      hasPreviousPage: data.hasPreviousPage,
+      hasNextPage: data.hasNextPage,
+    });
+
+  } catch (error) {
+    console.error(error);
+    document.getElementById('resource-grid').innerHTML = '<h1>Error loading resources.</h1>';
+  }
 }
 
 function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPreviousPage, hasNextPage }) {
