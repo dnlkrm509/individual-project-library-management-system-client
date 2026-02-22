@@ -75,6 +75,8 @@ async function search(page = 1) {
 
     const data = await response.json();
 
+    navbarLinks(data.isAuthenticated, 0);
+
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';
 
