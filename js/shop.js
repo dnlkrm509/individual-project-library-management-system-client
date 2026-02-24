@@ -350,6 +350,18 @@ async function fetchResource() {
     console.error(error);
     document.getElementById('resource-grid').innerHTML = '<h1>Error loading resource.</h1>';
   }
+
+
+  const params = new URLSearchParams(window.location.search);
+  const resourceId = params.get('id');
+  const response = await fetch(`${API_BASE_URL}/recommendation/${resourceId}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+
+    const resourceData = await response.json();
+    console.log(resourceData)
 }
 
 async function fetchBorrowed() {
