@@ -371,7 +371,7 @@ async function fetchResource() {
       return;
     }
 
-    const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || [];
+    const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || null;
 
     resourceData.resource.forEach(resource => {
       const div = document.createElement('div');
@@ -385,6 +385,7 @@ async function fetchResource() {
         <p><strong>Year:</strong> ${resource.publicationYear}</p>
         <p><strong>Genre:</strong> ${resource.genre}</p>
         <div class="buttons">
+          <a class="btn text-success" href="./detail.html?id=${resource._id}">Details</a>
           ${actionHTML}
         </div>
       `;
