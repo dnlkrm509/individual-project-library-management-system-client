@@ -361,7 +361,36 @@ async function fetchResource() {
     });
 
     const resourceData = await response.json();
-    console.log(resourceData)
+    // console.log(resourceData)
+
+    const container = document.getElementById('recommendation-resource-grid');
+    container.innerHTML = '';
+
+    if (!resourceData.resource || resourceData.resource.length === 0) {
+      container.innerHTML = '<h1>No Resources Found!</h1>';
+      return;
+    }
+
+    const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || [];
+
+    resourceData.resource.forEach(resource => {
+      const div = document.createElement('div');
+      div.classList.add('item');
+
+      const actionHTML = getActionButtonHTML(resource, borrowedResources);
+
+      div.innerHTML = `
+        <h3>${resource.title}</h3>
+        <p><strong>Author:</strong> ${resource.author}</p>
+        <p><strong>Year:</strong> ${resource.publicationYear}</p>
+        <p><strong>Genre:</strong> ${resource.genre}</p>
+        <div class="buttons">
+          ${actionHTML}
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
 }
 
 async function fetchBorrowed() {
