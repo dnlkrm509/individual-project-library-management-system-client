@@ -37,10 +37,6 @@ li a {
     align-items: center;
 }
 
-.active {
-    color: white;
-}
-
 .input-div {
     display: flex;
     flex-direction: column;
