@@ -8,11 +8,10 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-nav {
-    background-color: gray;
-    padding: 1.5rem;
+.navbar-nav {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 ul {

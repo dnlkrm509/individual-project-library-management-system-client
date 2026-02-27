@@ -10,14 +10,24 @@
   <script src="../js/admin.js"></script>
 </head>
 <body>
-  <nav>
-    <ul class="list" id="left-list">
-      <li><a href="../shop/resources.html">Resources</a></li>
-      <!-- Added authentication-based nav links dynatically -->
-    </ul>
-    <ul class="list" id="right-list">
-      <!-- Add login/signup or logout links here -->
-    </ul>
+  <nav class="navbar bg-primary border-bottom border-body navbar-expand-lg" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Strong Library</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <ul class="list" id="left-list">
+            <li><a href="../shop/resources.html">Resources</a></li>
+            <!-- Added authentication-based nav links dynatically -->
+          </ul>
+          <ul class="list" id="right-list">
+            <!-- Add login/signup or logout links here -->
+          </ul>
+        </div>
+      </div>
+    </div>
   </nav>
 
   <main>
