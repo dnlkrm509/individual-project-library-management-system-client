@@ -75,7 +75,7 @@ async function search(page = 1) {
 
     const data = await response.json();
 
-    navbarLinks(data.isAuthenticated, 0);
+    navbarLinks(data.isAuthenticated, data.loggedInUser?.role, 0);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';
@@ -197,7 +197,7 @@ function getActionButtonHTML(resource, borrowedResources = null) {
 }
 
 
-function navbarLinks(isAuthenticated, activeLinkNUM) {
+function navbarLinks(isAuthenticated, role, activeLinkNUM) {
   const navLeftUl = document.getElementById('left-list');
   const navRightUl = document.getElementById('right-list');
 
@@ -216,12 +216,18 @@ function navbarLinks(isAuthenticated, activeLinkNUM) {
   }
 
   if (isAuthenticated) {
-    navLeftUl.insertAdjacentHTML('beforeend', `
-      <li><a href=${borrow} id="nav-1">Borrowed</a></li>
-      <li><a href=${history} id="nav-2">Borrow History</a></li>
-      <li><a href=${adminEdit} id="nav-3">Add Resource</a></li>
-      <li><a href=${adminResource} id="nav-4">Admin Resources</a></li>
-    `);
+    if (role === "user") {
+      navLeftUl.insertAdjacentHTML('beforeend', `
+        <li><a href=${borrow} id="nav-1">Borrowed</a></li>
+        <li><a href=${history} id="nav-2">Borrow History</a></li>
+      `);
+    }
+    if (role === "admin") {
+      navLeftUl.insertAdjacentHTML('beforeend', `
+        <li><a href=${adminEdit} id="nav-3">Add Resource</a></li>
+        <li><a href=${adminResource} id="nav-4">Admin Resources</a></li>
+      `);
+    }
     navLeftUl.setAttribute('data-rendered', 'true');
 
     const activeLink = document.getElementById(`nav-${activeLinkNUM}`);
@@ -318,8 +324,7 @@ async function fetchResource() {
 
     const resourceData = await response.json();
 
-    navbarLinks(resourceData.isAuthenticated, 0);
-
+    navbarLinks(resourceData.isAuthenticated, resourceData.loggedInUser?.role, 0);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';
@@ -409,7 +414,7 @@ async function fetchBorrowed() {
 
         const borrowedResources = await response.json();
 
-        navbarLinks(borrowedResources.isAuthenticated, 1);
+        navbarLinks(borrowedResources.isAuthenticated, borrowedResources.loggedInUser.role, 1);
 
         const container = document.getElementById('resource-grid');
         container.innerHTML = '';
@@ -459,7 +464,7 @@ async function fetchBorrowedHistory() {
 
     const borrowHistoryData = await response.json();
 
-    navbarLinks(borrowHistoryData.isAuthenticated, 2);
+    navbarLinks(borrowHistoryData.isAuthenticated, borrowHistoryData.loggedInUser.role, 2);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';

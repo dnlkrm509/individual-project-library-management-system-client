@@ -26,7 +26,7 @@ async function loadEditForm() {
   const urlParams = new URLSearchParams(window.location.search);
   const resourceId = urlParams.get('id');
 
-  navbarLinks(true, 3);
+  navbarLinks(true, "admin", 3);
 
   if (!resourceId) return;
 
@@ -59,19 +59,25 @@ async function loadEditForm() {
 }
 
 
-function navbarLinks(isAuthenticated, activeLinkNUM) {
+function navbarLinks(isAuthenticated, role, activeLinkNUM) {
   const navLeftUl = document.getElementById('left-list');
   const navRightUl = document.getElementById('right-list');
 
   if (navLeftUl.getAttribute('data-rendered') === 'true') return;
 
   if (isAuthenticated) {
-    navLeftUl.insertAdjacentHTML('beforeend', `
-      <li><a href="../shop/borrow.html" id="nav-1">Borrowed</a></li>
-      <li><a href="../shop/borrow-history.html" id="nav-2">Borrow History</a></li>
-      <li><a href="../admin/edit-resource.html" id="nav-3">Add Resource</a></li>
-      <li><a href="../admin/resources.html" id="nav-4">Admin Resources</a></li>
-    `);
+    if (role === "user") {
+      navLeftUl.insertAdjacentHTML('beforeend', `
+        <li><a href="../shop/borrow.html" id="nav-1">Borrowed</a></li>
+        <li><a href="../shop/borrow-history.html" id="nav-2">Borrow History</a></li>
+      `);
+    }
+    if (role === "admin") {
+      navLeftUl.insertAdjacentHTML('beforeend', `
+        <li><a href="../admin/edit-resource.html" id="nav-3">Add Resource</a></li>
+        <li><a href="../admin/resources.html" id="nav-4">Admin Resources</a></li>
+      `);
+    }
     navLeftUl.setAttribute('data-rendered', 'true');
 
     const activeLink = document.getElementById(`nav-${activeLinkNUM}`);
@@ -112,7 +118,7 @@ async function fetchResources() {
 
     const data = await response.json();
 
-    navbarLinks(data.isAuthenticated, 4);
+    navbarLinks(data.isAuthenticated, data.loggedInUser?.role, 4);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';
