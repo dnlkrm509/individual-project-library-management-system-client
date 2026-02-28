@@ -26,7 +26,18 @@ async function loadEditForm() {
   const urlParams = new URLSearchParams(window.location.search);
   const resourceId = urlParams.get('id');
 
-  navbarLinks(true, "admin", 3);
+  const response = await fetch(`${API_BASE_URL}/admin/user`, {
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to get admin email.');
+  }
+
+  const data = await response.json();
+  navbarLinks(true, data.loggedInUser.role, data.loggedInUser.email, 3);
 
   if (!resourceId) return;
 
@@ -59,7 +70,7 @@ async function loadEditForm() {
 }
 
 
-function navbarLinks(isAuthenticated, role, activeLinkNUM) {
+function navbarLinks(isAuthenticated, role, email, activeLinkNUM) {
   const navLeftUl = document.getElementById('left-list');
   const navRightUl = document.getElementById('right-list');
 
@@ -105,6 +116,9 @@ function navbarLinks(isAuthenticated, role, activeLinkNUM) {
     `;
   } else {
     navRightUl.innerHTML = `
+      <span class="navbar-text">
+        Welcome back ${email}
+      </span>
       <li class="nav-item">
         <a href="#" class="nav-link p-2" onclick="logout()">Logout</a>
       </li>
@@ -126,7 +140,7 @@ async function fetchResources() {
 
     const data = await response.json();
 
-    navbarLinks(data.isAuthenticated, data.loggedInUser?.role, 4);
+    navbarLinks(data.isAuthenticated, data.loggedInUser?.role, data.loggedInUser?.email, 4);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';

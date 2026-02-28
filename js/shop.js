@@ -75,7 +75,7 @@ async function search(page = 1) {
 
     const data = await response.json();
 
-    navbarLinks(data.isAuthenticated, data.loggedInUser?.role, 0);
+    navbarLinks(data.isAuthenticated, data.loggedInUser?.role, data.loggedInUser?.email, 0);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';
@@ -197,7 +197,7 @@ function getActionButtonHTML(resource, borrowedResources = null) {
 }
 
 
-function navbarLinks(isAuthenticated, role, activeLinkNUM) {
+function navbarLinks(isAuthenticated, role, email, activeLinkNUM) {
   const navLeftUl = document.getElementById('left-list');
   const navRightUl = document.getElementById('right-list');
 
@@ -255,6 +255,9 @@ function navbarLinks(isAuthenticated, role, activeLinkNUM) {
     `;
   } else {
     navRightUl.innerHTML = `
+      <span class="navbar-text">
+        Welcome back ${email}
+      </span>
       <li class="nav-item">
         <a href="#" class="nav-link p-2" onclick="logout()">Logout</a>
       </li>
@@ -332,7 +335,7 @@ async function fetchResource() {
 
     const resourceData = await response.json();
 
-    navbarLinks(resourceData.isAuthenticated, resourceData.loggedInUser?.role, 0);
+    navbarLinks(resourceData.isAuthenticated, resourceData.loggedInUser?.role, resourceData.loggedInUser?.email, 0);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';
@@ -422,7 +425,7 @@ async function fetchBorrowed() {
 
         const borrowedResources = await response.json();
 
-        navbarLinks(borrowedResources.isAuthenticated, borrowedResources.loggedInUser.role, 1);
+        navbarLinks(borrowedResources.isAuthenticated, borrowedResources.loggedInUser.role, borrowedResources.loggedInUser.email, 1);
 
         const container = document.getElementById('resource-grid');
         container.innerHTML = '';
@@ -472,7 +475,7 @@ async function fetchBorrowedHistory() {
 
     const borrowHistoryData = await response.json();
 
-    navbarLinks(borrowHistoryData.isAuthenticated, borrowHistoryData.loggedInUser.role, 2);
+    navbarLinks(borrowHistoryData.isAuthenticated, borrowHistoryData.loggedInUser.role, borrowHistoryData.loggedInUser.email, 2);
 
     const container = document.getElementById('resource-grid');
     container.innerHTML = '';
