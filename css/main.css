@@ -8,39 +8,6 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-.navbar-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    gap: 6%;
-}
-
-li a:hover {
-    cursor: pointer;
-    color:white;
-}
-
-li a {
-    padding: 0.1rem;
-    text-decoration: none;
-    color: lightgray;
-}
-
-.list {
-    display: flex;
-    align-items: center;
-}
-
-.active {
-    color: white;
-}
-
 .input-div {
     display: flex;
     flex-direction: column;

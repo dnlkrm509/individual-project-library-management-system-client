@@ -14,98 +14,98 @@
   <nav class="navbar bg-primary border-bottom border-body navbar-expand-lg" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">NextGen Digital Library</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <ul class="list" id="left-list">
-            <li><a href="../shop/resources.html">Resources</a></li>
-            <!-- Added authentication-based nav links dynatically -->
-          </ul>
-          <ul class="list" id="right-list">
-            <li style="margin-right: 15px;">
-              <a class="link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-            </li>
-            <li>
-              <a class="link" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</a>
-            </li>
-          </ul>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav" id="left-list">
+          <li class="nav-item">
+            <a href="../shop/resources.html" class="nav-link p-2">Resources</a>
+          </li>
+          <!-- Added authentication-based nav links dynatically -->
+        </ul>
+        <ul class="navbar-nav ms-auto" id="right-list">
+          <li class="nav-item">
+            <a  href="#" class="nav-link p-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+          </li>
+          <li class="nav-item">
+            <a  href="#" class="nav-link p-2" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</a>
+          </li>
+        </ul>
+      </div>
+    </div>
           
-          <!-- Register modal -->
-          <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content bg-dark text-light">
-                <div class="modal-header border-secondary">
-                  <h1 class="modal-title fs-5" id="registerModal">Signup</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <!-- Register -->
-                  <div class="container signup-form">
-                    <div class="input-div">
-                      <div class="col-4">
-                        <label for="email-signup">Email: </label>
-                      </div>
-                      <div class="col-8">
-                        <input type="email" id="email-signup" name="email-signup" placeholder="example@example.com" required>
-                      </div>
-                    </div>
-                    <div class="input-div">
-                      <div class="col-4">
-                        <label for="password-signup">Password: </label>
-                      </div>
-                      <div class="col-8">
-                        <input type="password" id="password-signup" name="password-signup" required>
-                      </div>
-                    </div>
-                    <div class="input-div">
-                      <div class="col-8">
-                        <label for="confirm-password-signup">Confirm Password: </label>
-                      </div>
-                      <div class="col-8">
-                        <input type="password" id="confirm-password-signup" name="confirm-password-signup" required>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="btn btn-outline-success" onclick="signup()">Signup</button>
-                </div>
-              </div>
-            </div>
+    <!-- Register modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-secondary">
+            <h1 class="modal-title fs-5" id="registerModal">Signup</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-
-          <!--Login modal-->
-          <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content bg-dark text-light">
-                <div class="modal-header border-secondary">
-                  <h1 class="modal-title fs-5" id="loginModal">Login</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-body">
+            <!-- Register -->
+            <div class="container signup-form">
+              <div class="input-div">
+                <div class="col-4">
+                  <label for="email-signup">Email: </label>
                 </div>
-                <div class="modal-body">
-                  <!-- Login -->
-                  <div class="container login-form">  
-                    <div class="input-div">
-                      <div class="col-4">
-                          <label for="email-login">Email: </label>
-                      </div>
-                      <div class="col-8">
-                          <input type="email" id="email-login" placeholder="example@example.com">
-                      </div>
-                    </div>
-                    <div class="input-div">
-                      <div class="col-4">
-                          <label for="password-login">Password: </label>
-                      </div>
-                      <div class="col-8">
-                          <input type="password" id="password-login">
-                      </div>
-                    </div>
-                  </div>
-                  <button class="btn btn-outline-success" onclick="login()">Login</button>
+                <div class="col-8">
+                  <input type="email" id="email-signup" name="email-signup" placeholder="example@example.com" required>
+                </div>
+              </div>
+              <div class="input-div">
+                <div class="col-4">
+                  <label for="password-signup">Password: </label>
+                </div>
+                <div class="col-8">
+                  <input type="password" id="password-signup" name="password-signup" required>
+                </div>
+              </div>
+              <div class="input-div">
+                <div class="col-8">
+                  <label for="confirm-password-signup">Confirm Password: </label>
+                </div>
+                <div class="col-8">
+                  <input type="password" id="confirm-password-signup" name="confirm-password-signup" required>
                 </div>
               </div>
             </div>
+            <button class="btn btn-outline-success" onclick="signup()">Signup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Login modal-->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-secondary">
+            <h1 class="modal-title fs-5" id="loginModal">Login</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Login -->
+            <div class="container login-form">  
+              <div class="input-div">
+                <div class="col-4">
+                    <label for="email-login">Email: </label>
+                </div>
+                <div class="col-8">
+                    <input type="email" id="email-login" placeholder="example@example.com">
+                </div>
+              </div>
+              <div class="input-div">
+                <div class="col-4">
+                    <label for="password-login">Password: </label>
+                </div>
+                <div class="col-8">
+                    <input type="password" id="password-login">
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline-success" onclick="login()">Login</button>
           </div>
         </div>
       </div>

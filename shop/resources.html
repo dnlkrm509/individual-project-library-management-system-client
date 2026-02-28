@@ -14,19 +14,19 @@
   <nav class="navbar bg-primary border-bottom border-body navbar-expand-lg" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">NextGen Digital Library</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <ul class="list" id="left-list">
-            <li><a href="./resources.html" class="active">Resources</a></li>
-            <!-- Added authentication-based nav links dynatically -->
-          </ul>
-          <ul class="list" id="right-list">
-            <!-- Add login/signup or logout links here -->
-          </ul>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav" id="left-list">
+          <li class="nav-item">
+            <a href="./resources.html" class="nav-link p-2 active" aria-current="page">Resources</a>
+          </li>
+          <!-- Added authentication-based nav links dynatically -->
+        </ul>
+        <ul class="navbar-nav ms-auto" id="right-list">
+          <!-- Add login/signup or logout links here -->
+        </ul>
       </div>
     </div>
     

@@ -218,14 +218,22 @@ function navbarLinks(isAuthenticated, role, activeLinkNUM) {
   if (isAuthenticated) {
     if (role === "user") {
       navLeftUl.insertAdjacentHTML('beforeend', `
-        <li><a href=${borrow} id="nav-1">Borrowed</a></li>
-        <li><a href=${history} id="nav-2">Borrow History</a></li>
+        <li class="nav-item">
+          <a class="nav-link p-2" href=${borrow} id="nav-1">Borrowed</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link p-2" href=${history} id="nav-2">Borrow History</a>
+        </li>
       `);
     }
     if (role === "admin") {
       navLeftUl.insertAdjacentHTML('beforeend', `
-        <li><a href=${adminEdit} id="nav-3">Add Resource</a></li>
-        <li><a href=${adminResource} id="nav-4">Admin Resources</a></li>
+        <li class="nav-item">
+          <a class="nav-link p-2" href=${adminEdit} id="nav-3">Add Resource</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link p-2" href=${adminResource} id="nav-4">Admin Resources</a>
+        </li>
       `);
     }
     navLeftUl.setAttribute('data-rendered', 'true');
@@ -238,17 +246,17 @@ function navbarLinks(isAuthenticated, role, activeLinkNUM) {
 
   if (!isAuthenticated) {
     navRightUl.innerHTML = `
-      <li style="margin-right: 15px;">
-        <a class="link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+      <li class="nav-item">
+        <a  href="#" class="nav-link p-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
       </li>
-      <li>
-        <a class="link" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</a>
+      <li class="nav-item">
+        <a  href="#" class="nav-link p-2" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</a>
       </li>
     `;
   } else {
     navRightUl.innerHTML = `
-      <li>
-        <button class="btn" style="border: none; color: lightgray;" type="button" onclick="logout()">Logout</button>
+      <li class="nav-item">
+        <a href="#" class="nav-link p-2" onclick="logout()">Logout</a>
       </li>
     `;
   }
