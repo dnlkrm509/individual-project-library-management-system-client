@@ -99,7 +99,7 @@ async function search(page = 1) {
       const div = document.createElement('div');
       div.classList.add('item');
 
-      const actionHTML = getActionButtonHTML(resource, borrowedResources);
+      const actionHTML = getActionButtonHTML(resource, borrowedResources, data.loggedInUser?.role === "admin");
 
       div.innerHTML = `
         <h3>${resource.title}</h3>
@@ -166,8 +166,8 @@ function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPr
 }
 
 
-function getActionButtonHTML(resource, borrowedResources = null) {
-  if (!borrowedResources) {
+function getActionButtonHTML(resource, borrowedResources = null, isAdmin) {
+  if (isAdmin || !borrowedResources) {
     return '';
   }
 
@@ -346,7 +346,7 @@ async function fetchResource() {
 
     const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || [];
 
-    const actionHTML = getActionButtonHTML(resourceData.resource, borrowedResources);
+    const actionHTML = getActionButtonHTML(resourceData.resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
 
     div.innerHTML = `
       <h3>${resourceData.resource.title}</h3>
@@ -393,7 +393,7 @@ async function fetchResource() {
       const div = document.createElement('div');
       div.classList.add('item');
 
-      const actionHTML = getActionButtonHTML(resource, borrowedResources);
+      const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
 
       div.innerHTML = `
         <h3>${resource.title}</h3>
