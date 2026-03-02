@@ -31,14 +31,19 @@
             </div>
         </div>
     </nav>
+    <textarea id="input" placeholder="Leave a review" rows="10" cols="50"></textarea>
+    <br>
     <h2>Return Checkout</h2>
     <p id="summary">Loading...</p>
     <button onclick="payNow()" class="btn btn-outline-success">Pay Now</button>
     <script>
+        const input = document.getElementById('input');
+        let resourceId;
+
         window.onload = async function () {
             const token = localStorage.getItem('token');
             const params = new URLSearchParams(window.location.search);
-            const resourceId = params.get('resourceId');
+            resourceId = params.get('resourceId');
         
             if (!token || !resourceId) {
                 alert('Missing resource or not logged in.');
@@ -70,15 +75,27 @@
             }
         };
     
-        function payNow() {
-        const stripe = Stripe(config.STRIPE_PUBLIC_KEY);
-    
-        stripe.redirectToCheckout({ sessionId: window.stripeSessionId })
+        async function payNow() {
+            const stripe = Stripe(config.STRIPE_PUBLIC_KEY);
+        
+            stripe.redirectToCheckout({ sessionId: window.stripeSessionId })
             .then(result => {
                 if (result.error) {
                     alert(result.error.message);
                 }
             });
+            
+            
+            const response = await fetch(`${API_BASE_URL}/sentiment/${resourceId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                 },
+                body: JSON.stringify({ text: input.value })
+            });
+            const data = await response.json();
+            console.log(data)
         }
     </script>
 </body>
