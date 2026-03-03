@@ -11,7 +11,7 @@
   <script src="../js/auth.js"></script>
 </head>
 <body>
-  <nav class="navbar bg-primary border-bottom border-body navbar-expand-lg" data-bs-theme="dark">
+  <nav class="navbar bg-primary border-bottom border-body navbar-expand-lg sticky-top" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">NextGen Digital Library</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,6 +113,9 @@
   <main>
     <div id="resource-grid" class="item-grid">
       <!-- Resources will be loaded here dynamically -->
+    </div>
+    <div class="container">
+      <div class="row" id="reviewsContainer"></div>
     </div>
     <div class="p-4 rounded-4 shadow-sm bg-light text-center">
       <h2 class="fw-bold mb-2 display-6"

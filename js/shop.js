@@ -332,8 +332,20 @@ async function fetchResource() {
     if (!response.ok) {
       throw new Error('Failed to fetch resource');
     }
-
+    
     const resourceData = await response.json();
+    console.log(resourceData)
+    
+    let rating = 0;
+    resourceData.reviews.forEach(review => {
+        rating += Number(review.response.rating);
+    });
+
+    if (resourceData.reviews.length > 0) {
+      rating = (rating / resourceData.reviews.length).toFixed(1);
+    } else {
+      rating = 0;
+    }
 
     navbarLinks(resourceData.isAuthenticated, resourceData.loggedInUser?.role, resourceData.loggedInUser?.email, 0);
 
@@ -348,8 +360,10 @@ async function fetchResource() {
 
     const actionHTML = getActionButtonHTML(resourceData.resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
 
+
     div.innerHTML = `
       <h3>${resourceData.resource.title}</h3>
+      <p><strong>Rating: </strong> ${rating}</p>
       <p><strong>Author:</strong> ${resourceData.resource.author}</p>
       <p><strong>Year:</strong> ${resourceData.resource.publicationYear}</p>
       <p><strong>Genre:</strong> ${resourceData.resource.genre}</p>`;
@@ -360,8 +374,32 @@ async function fetchResource() {
         </div>
       `;
       }
+      container.appendChild(div);
+
+      const reviewContainer = document.getElementById('reviewsContainer');
+      
+      resourceData.reviews.forEach(review => {
+        rating += review.response.rating;
+        const div2 = document.createElement('div');
+
+        div2.classList.add('col-12', 'mb-3');
+
+        div2.innerHTML = `
+          <div class="container">
+            <div class="row" id="container">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">${review.response.input}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        `;
+
+        reviewContainer.appendChild(div2);
+      });
     
-    container.appendChild(div);
   } catch (error) {
     console.error(error);
     document.getElementById('resource-grid').innerHTML = '<h1>Error loading resource.</h1>';
