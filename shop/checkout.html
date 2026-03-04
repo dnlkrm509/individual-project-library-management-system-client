@@ -89,6 +89,7 @@
                 if (!response.ok) throw new Error('Failed to get checkout session');
         
                 const data = await response.json();
+                console.log(data)
         
                 // Show payment summary:
                 document.getElementById('summary').innerText = `Amount to pay: £${(data.total).toFixed(2)}`;
