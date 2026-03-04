@@ -107,14 +107,6 @@
         async function payNow() {
             const rating = document.getElementById('rate');
             const stripe = Stripe(config.STRIPE_PUBLIC_KEY);
-        
-            stripe.redirectToCheckout({ sessionId: window.stripeSessionId })
-            .then(result => {
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            });
-            
             
             const response = await fetch(`${API_BASE_URL}/sentiment/${resourceId}`, {
                 method: 'POST',
@@ -125,6 +117,15 @@
                 body: JSON.stringify({ text: input.value, rating: rating.value })
             });
             const data = await response.json();
+            
+            stripe.redirectToCheckout({ sessionId: window.stripeSessionId })
+            .then(result => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            });
+            
+            
             console.log(data)
         }
     </script>
