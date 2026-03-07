@@ -527,15 +527,15 @@ async function fetchBorrowedHistory() {
       const recordDiv = document.createElement('div');
       recordDiv.classList.add('record-entry');
 
-      const innerItems = record.resources.map(resource => `
+      const innerItems = `
         <div class="item">
-          <h3>${resource.title}</h3>
-          <p><strong>Author:</strong> ${resource.author}</p>
-          <p><strong>Year:</strong> ${resource.publicationYear}</p>
-          <p><strong>Genre:</strong> ${resource.genre}</p>
-          <p><strong>Returned Date:</strong> ${resource.returnedDate || 'N/A'}</p>
+          <h3>${record.resources.title}</h3>
+          <p><strong>Author:</strong> ${record.resources.author}</p>
+          <p><strong>Year:</strong> ${record.resources.publicationYear}</p>
+          <p><strong>Genre:</strong> ${record.resources.genre}</p>
+          <p><strong>Returned Date:</strong> ${record.resources.returnedDate || 'N/A'}</p>
         </div>
-      `).join('');
+      `;
 
       recordDiv.innerHTML = `
         <h3>#${record._id} - <button class="btn text-success" onclick="downloadInvoice('${record._id}')" style="border: none;">Invoice</button></h3>
