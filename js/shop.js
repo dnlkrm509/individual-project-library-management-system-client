@@ -207,12 +207,14 @@ function navbarLinks(isAuthenticated, role, email, activeLinkNUM) {
   let history = "./borrow-history.html";
   let adminEdit = "../admin/edit-resource.html";
   let adminResource = "../admin/resources.html";
+  let adminReport = "../admin/report.html";
 
   if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
     borrow = "./shop/borrow.html";
     history = "./shop/borrow-history.html";
     adminEdit = "./admin/edit-resource.html";
     adminResource = "./admin/resources.html";
+    adminReport = "./admin/report.html";
   }
 
   if (isAuthenticated) {
@@ -233,6 +235,9 @@ function navbarLinks(isAuthenticated, role, email, activeLinkNUM) {
         </li>
         <li class="nav-item">
           <a class="nav-link p-2" href=${adminResource} id="nav-4">Admin Resources</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link p-2" href=${adminReport} id="nav-5">Report</a>
         </li>
       `);
     }

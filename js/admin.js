@@ -1,7 +1,11 @@
+const reportSelect = document.getElementById('report');
+
 if (window.location.href.match('resources.html') !== null) {
     window.onload = fetchResources;
 } if (window.location.pathname.includes('edit-resource.html')) {
   window.onload = loadEditForm;
+} if (window.location.href.match('report.html') !== null) {
+    window.onload = fetchReport;
 }
 
 
@@ -95,6 +99,9 @@ function navbarLinks(isAuthenticated, role, email, activeLinkNUM) {
         <li class="nav-item">
           <a class="nav-link p-2" href="../admin/resources.html" id="nav-4">Admin Resources</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link p-2" href="../admin/report.html" id="nav-5">Report</a>
+        </li>
       `);
     }
     navLeftUl.setAttribute('data-rendered', 'true');
@@ -167,6 +174,84 @@ async function fetchResources() {
 
       container.appendChild(div);
     });
+
+  } catch (error) {
+    console.error(error);
+    document.getElementById('resource-grid').innerHTML = '<h1>Error loading resources.</h1>';
+  }
+}
+
+async function report() {
+  const val = reportSelect.value;
+  await fetchReport(val);
+}
+
+async function fetchReport(val = 'all') {
+  try {
+    let url = `${API_BASE_URL}/admin/report?reports=all`;
+    if(val === 'returned') {
+      url = `${API_BASE_URL}/admin/report?reports=returned`;
+    } else if (val === 'not-returned') {
+      url = `${API_BASE_URL}/admin/report?reports=not-returned`;
+    }
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch resources');
+    }
+
+    const data = await response.json();
+    
+    navbarLinks(data.isAuthenticated, data.loggedInUser?.role, data.loggedInUser?.email, 5);
+
+    const container = document.getElementById('resource-grid');
+    container.innerHTML = '';
+
+    if (!data.reports || data.reports.length === 0) {
+      container.innerHTML = '<h1>No Reports Found!</h1>';
+      return;
+    }
+
+    let rows = '';
+    let scope = 0;
+
+    data.reports.forEach(report => {
+      scope++;
+      rows += `
+        <tr>
+          <th scope="row">${scope}</th>
+          <td>${report.resourceId}</td>
+          <td>${report.resourceTitle}</td>
+          <td>${report.email}</td>
+          <td>${report.borrowDate}</td>
+          <td>${report.dueDate}</td>
+          <td>${report.returned ? report.returnedDate : 'Not returned'}</td>
+        </tr>
+      `;
+    });
+
+    container.innerHTML = `
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Row Num</th>
+          <th scope="col">Resource ID</th>
+          <th scope="col">Resource Title</th>
+          <th scope="col">User Email</th>
+          <th scope="col">Borrowed At</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Returned Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    `;
 
   } catch (error) {
     console.error(error);
