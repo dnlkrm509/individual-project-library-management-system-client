@@ -93,9 +93,9 @@ async function search(page = 1) {
       detail = "./shop/detail.html";
     }
 
-    if (sortBy.value !== '') {
-      data.resources.sort(compare);
-    }
+    //if (sortBy.value) {
+      //data.resources.sort(compare);
+    //}
 
     data.resources.forEach(resource => {
       const div = document.createElement('div');
