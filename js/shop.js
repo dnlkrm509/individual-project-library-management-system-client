@@ -6,7 +6,7 @@ const searchInput = document.getElementById("search");
 const path = window.location.pathname;
 
 if (path.endsWith("resources.html") || path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-    window.onload = search;
+    window.onload = search(1, false);
 } else if (window.location.href.match('detail.html') !== null) {
     window.onload = fetchResource;
 } else if (window.location.href.match('borrow.html') !== null) {
@@ -57,10 +57,10 @@ const compare = (a, b) => {
 }
 
 async function sort() {
-  await search();
+  await search(1, true);
 }
 
-async function search(page = 1) {
+async function search(page, sort) {
   const searchText = searchInput.value;
   try {
     const response = await fetch(`${API_BASE_URL}/search/?page=${page}&search=${searchText}`, {
@@ -93,9 +93,7 @@ async function search(page = 1) {
       detail = "./shop/detail.html";
     }
 
-    //if (sortBy.value) {
-      //data.resources.sort(compare);
-    //}
+    if (sort === true) data.resources.sort(compare);
 
     data.resources.forEach(resource => {
       const div = document.createElement('div');
