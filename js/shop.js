@@ -6,7 +6,7 @@ const searchInput = document.getElementById("search");
 const path = window.location.pathname;
 
 if (path.endsWith("resources.html") || path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-    window.onload = search(1, false);
+    window.onload = () => search(1, false);
 } else if (window.location.href.match('detail.html') !== null) {
     window.onload = fetchResource;
 } else if (window.location.href.match('borrow.html') !== null) {
