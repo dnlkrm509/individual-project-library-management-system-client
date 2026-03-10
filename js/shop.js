@@ -93,7 +93,7 @@ async function search(page = 1, sort = false) {
       detail = "./shop/detail.html";
     }
 
-    if (sort) data.resources.sort(compare);
+    if (sort === true) data.resources.sort(compare);
 
     data.resources.forEach(resource => {
       const div = document.createElement('div');
