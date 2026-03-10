@@ -57,10 +57,10 @@ const compare = (a, b) => {
 }
 
 async function sort() {
-  await search(sort = true);
+  await search();
 }
 
-async function search(page = 1, sort = false) {
+async function search(page = 1) {
   const searchText = searchInput.value;
   try {
     const response = await fetch(`${API_BASE_URL}/search/?page=${page}&search=${searchText}`, {
@@ -93,7 +93,9 @@ async function search(page = 1, sort = false) {
       detail = "./shop/detail.html";
     }
 
-    if (sort === true) data.resources.sort(compare);
+    if (sortBy.value !== '') {
+      data.resources.sort(compare);
+    }
 
     data.resources.forEach(resource => {
       const div = document.createElement('div');
