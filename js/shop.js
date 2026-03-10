@@ -343,7 +343,7 @@ async function fetchResource() {
     }
     
     const resourceData = await response.json();
-    console.log(resourceData)
+    // console.log(resourceData)
     
     let rating = 0;
     resourceData.reviews.forEach(review => {
@@ -427,7 +427,7 @@ async function fetchResource() {
     });
 
     const resourceData = await response.json();
-    // console.log(resourceData)
+    console.log(resourceData)
 
     const container = document.getElementById('recommendation-resource-grid');
     container.innerHTML = '';
@@ -478,7 +478,7 @@ async function fetchBorrowed() {
         }
 
         const borrowedResources = await response.json();
-
+        
         navbarLinks(borrowedResources.isAuthenticated, borrowedResources.loggedInUser.role, borrowedResources.loggedInUser.email, 1);
 
         const container = document.getElementById('resource-grid');

@@ -162,10 +162,14 @@ async function fetchResources() {
       div.classList.add('item');
 
       div.innerHTML = `
-        <h3>${resource.title}</h3>
+        <div class="d-flex justify-content-between align-items-center mx-auto">
+          <h3 class="mb-0">${resource.title}</h3>
+          <span class="fw-bold text-warning">
+            ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+          </span>
+        </div>
         <p><strong>Author:</strong> ${resource.author}</p>
-        <p><strong>Year:</strong> ${resource.publicationYear}</p>
-        <p><strong>Genre:</strong> ${resource.genre}</p>
+        <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
         <div class="buttons">
           <a class="btn text-success" href="edit-resource.html?id=${resource._id}">Edit</a>
           <button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button>
