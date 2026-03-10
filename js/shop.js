@@ -446,8 +446,9 @@ async function fetchResource() {
       const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
 
       div.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mx-auto">
-          <h3 class="mb-0">${resource.title}</h3>
+      <h3 class="mb-0">${resource.title}</h3>
+        <div class="d-flex justify-content-between align-items-center mx-auto w-75">
+          <p class="mt-3"><strong>Relationship Score:</strong> ${resource.relationshipScore}</p>
           <span class="fw-bold text-warning">
             ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
           </span>
