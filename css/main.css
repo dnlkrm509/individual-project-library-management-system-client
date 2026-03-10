@@ -125,20 +125,20 @@ h5 {
     color: white;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .item-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr); /* laptop */
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     .item-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* tablet / small screens like iPhone 15 Pro Max */
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 430px) {
     .item-grid {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1, 1fr); /* very small phones */
     }
 }
