@@ -43,7 +43,7 @@ h5 {
     background: linear-gradient(#fffefc, #fff);
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding-top: 5px;
+    padding: 5px 0;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     display: flex;
@@ -57,6 +57,22 @@ h5 {
     text-shadow: 
         0 2px 3px rgba(0,0,0,0.3),
         0 5px 10px rgba(0,0,0,0.2);
+}
+
+.item h6 {
+    letter-spacing: 1px;
+    color: #51c244; /* strongest color */
+    text-shadow: 
+        0 2px 3px rgba(75, 163, 60, 0.3),
+        0 5px 10px rgba(75,163,60,0.2);
+}
+
+.item span {
+    letter-spacing: 1px;
+    color: #eef289; /* strongest color */
+    text-shadow: 
+        0 2px 3px rgba(240, 243, 97, 0.5),
+        0 5px 10px rgba(240,243,97,0.4);
 }
 
 .item p,

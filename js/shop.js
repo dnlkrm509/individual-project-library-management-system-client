@@ -102,10 +102,14 @@ async function search(page, sort) {
       const actionHTML = getActionButtonHTML(resource, borrowedResources, data.loggedInUser?.role === "admin");
 
       div.innerHTML = `
-        <h3>${resource.title}</h3>
+        <div class="d-flex justify-content-between align-items-center mx-auto">
+          <h3 class="mb-0">${resource.title}</h3>
+          <span class="fw-bold text-warning">
+            ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+          </span>
+        </div>
         <p><strong>Author:</strong> ${resource.author}</p>
-        <p><strong>Year:</strong> ${resource.publicationYear}</p>
-        <p><strong>Genre:</strong> ${resource.genre}</p>
+        <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
         <div class="buttons">
           <a class="btn text-success" href="${detail}?id=${resource._id}">Details</a>
           ${actionHTML}
@@ -367,11 +371,14 @@ async function fetchResource() {
 
 
     div.innerHTML = `
-      <h3>${resourceData.resource.title}</h3>
-      <p><strong>Rating: </strong> ${rating}</p>
+      <div class="d-flex justify-content-between align-items-center mx-auto">
+        <h3 class="mb-0">${resourceData.resource.title}</h3>
+        <span class="fw-bold text-warning">
+          ⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}
+        </span>
+      </div>
       <p><strong>Author:</strong> ${resourceData.resource.author}</p>
-      <p><strong>Year:</strong> ${resourceData.resource.publicationYear}</p>
-      <p><strong>Genre:</strong> ${resourceData.resource.genre}</p>`;
+      <p><strong>Year:</strong> ${resourceData.resource.publicationYear} - <strong>Genre:</strong> ${resourceData.resource.genre}</p>`;
       if (resourceData.isAuthenticated) {
         div.innerHTML += `
         <div class="buttons">
@@ -439,10 +446,14 @@ async function fetchResource() {
       const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
 
       div.innerHTML = `
-        <h3>${resource.title}</h3>
+        <div class="d-flex justify-content-between align-items-center mx-auto">
+          <h3 class="mb-0">${resource.title}</h3>
+          <span class="fw-bold text-warning">
+            ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+          </span>
+        </div>
         <p><strong>Author:</strong> ${resource.author}</p>
-        <p><strong>Year:</strong> ${resource.publicationYear}</p>
-        <p><strong>Genre:</strong> ${resource.genre}</p>
+        <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
         <div class="buttons">
           <a class="btn text-success" href="./detail.html?id=${resource._id}">Details</a>
           ${actionHTML}
@@ -483,12 +494,15 @@ async function fetchBorrowed() {
             div.classList.add('item');
 
             div.innerHTML = `
-                <h3>${resource.title}</h3>
-                <hr />
+                <div class="d-flex justify-content-between align-items-center mx-auto">
+                  <h3 class="mb-0">${resource.title}</h3>
+                  <span class="fw-bold text-warning">
+                    ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+                  </span>
+                </div>
                 <h6 class="text-success">Due Date: ${resource.dueDate || 'N/A'}</h6>
                 <p><strong>Author:</strong> ${resource.author}</p>
-                <p><strong>Year:</strong> ${resource.publicationYear}</p>
-                <p><strong>Genre:</strong> ${resource.genre}</p>
+                <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
                 <div class="buttons">
                     <a class="btn btn-outline-info" href="./checkout.html?resourceId=${resource._id}">Return</a>
                 </div>
@@ -534,10 +548,14 @@ async function fetchBorrowedHistory() {
 
       const innerItems = `
         <div class="item">
-          <h3>${record.resources.title}</h3>
+          <div class="d-flex justify-content-between align-items-center mx-auto">
+            <h3 class="mb-0">${record.resources.title}</h3>
+            <span class="fw-bold text-warning">
+              ⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}
+            </span>
+          </div>
           <p><strong>Author:</strong> ${record.resources.author}</p>
-          <p><strong>Year:</strong> ${record.resources.publicationYear}</p>
-          <p><strong>Genre:</strong> ${record.resources.genre}</p>
+          <p><strong>Year:</strong> ${record.resources.publicationYear} - <strong>Genre:</strong> ${record.resources.genre}</p>
           <p><strong>Returned Date:</strong> ${record.resources.returnedDate || 'N/A'}</p>
         </div>
       `;
