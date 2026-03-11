@@ -118,7 +118,6 @@ h5 {
 }
 
 .user-message {
-    width: 30rem;
     margin: auto;
     margin-top: 0.5rem;
     border: 1px solid rgb(15, 15, 149);
@@ -129,9 +128,15 @@ h5 {
 }
 
 .user-message--error {
-    background-color: rgb(247, 222, 222);
+    background-color: rgb(253, 244, 244);
     color: red;
     border-color: red;
+}
+
+.user-message--success {
+    background-color: rgb(244, 253, 244);
+    color:green;
+    border-color: green;
 }
 
 .input-div input.invalid {

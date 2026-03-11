@@ -1,3 +1,6 @@
+const responseLogin = document.getElementById('response-login');
+const responseSignup = document.getElementById('response-signup');
+
 async function login() {
     try {
         const password = document.getElementById('password-login').value;
@@ -13,12 +16,24 @@ async function login() {
                 email: email
             })
         });
-        if (!response.ok) {
-            throw new Error('Failed to login.');
-        }
-
+        
+        
         const loginData = await response.json();
         console.log(loginData)
+        responseLogin.classList.remove('user-message', 'user-message--error', 'user-message--success');
+        responseLogin.innerHTML = "";
+
+        if (!response.ok) {
+            responseLogin.classList.add('user-message', 'user-message--error');
+            responseLogin.innerHTML = "HTTP error: " + response.status;
+        }
+        if (response.status !== 200) {
+            return responseLogin.innerHTML += ", Error Message: " + loginData.errorMessage;
+        } else {
+            responseLogin.classList.add('user-message', 'user-message--success');
+            responseLogin.innerHTML = loginData.message;
+        }
+
         localStorage.setItem('token', loginData.token);
         let resources = "../shop/resources.html";
 
@@ -27,7 +42,9 @@ async function login() {
         }
         window.location.href = resources;
 
-    } catch (error) {}
+    } catch (error) {
+        responseLogin.innerHTML = "HTTP error: " + error;
+    }
 };
 
 async function signup() {
@@ -48,8 +65,19 @@ async function signup() {
             })
         });
 
+        const signupData = await response.json();
+        responseSignup.classList.remove('user-message', 'user-message--error', 'user-message--success');
+        responseSignup.innerHTML = "";
+
         if (!response.ok) {
-            throw new Error('Failed to login.');
+            responseSignup.classList.add('user-message', 'user-message--error');
+            responseSignup.innerHTML = "HTTP error: " + response.status;
+        }
+        if (response.status !== 200) {
+            return responseSignup.innerHTML += ", Error Message: " + signupData.errorMessage;
+        } else {
+            responseSignup.classList.add('user-message', 'user-message--success');
+            responseSignup.innerHTML = signupData.message;
         }
 
         let resources = "../shop/resources.html";
@@ -59,7 +87,9 @@ async function signup() {
         }
         window.location.href = resources;
 
-    } catch (error) {}
+    } catch (error) {
+        responseSignup.innerHTML = "HTTP error: " + error;
+    }
 };
 
 async function reset() {

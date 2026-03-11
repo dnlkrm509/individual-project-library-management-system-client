@@ -6,9 +6,7 @@
   <title>Resources</title>
   <link rel="stylesheet" href="../css/main.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  
-  <script src="../js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
 </head>
 <body>
   <nav class="navbar bg-primary border-bottom border-body navbar-expand-lg sticky-top" data-bs-theme="dark">
@@ -68,11 +66,12 @@
             </div>
           </div>
           <button class="btn btn-outline-success" onclick="signup()">Signup</button>
+          <div id="response-signup"></div>
         </div>
       </div>
     </div>
   </div>
-
+  
   <!--Login modal-->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -86,22 +85,23 @@
           <div class="container login-form">  
             <div class="input-div">
               <div class="col-4">
-                  <label for="email-login">Email: </label>
+                <label for="email-login">Email: </label>
               </div>
               <div class="col-8">
-                  <input type="email" id="email-login" placeholder="example@example.com">
+                <input type="email" id="email-login" placeholder="example@example.com">
               </div>
             </div>
             <div class="input-div">
               <div class="col-4">
-                  <label for="password-login">Password: </label>
+                <label for="password-login">Password: </label>
               </div>
               <div class="col-8">
-                  <input type="password" id="password-login">
+                <input type="password" id="password-login">
               </div>
             </div>
           </div>
           <button class="btn btn-outline-success" onclick="login()">Login</button>
+          <div id="response-login"></div>
           <div class="centered">
             <a href="../auth/reset.html">Reset Password</a>
           </div>
@@ -109,7 +109,7 @@
       </div>
     </div>
   </div>
-
+  
   <main>
     <div class="container mt-3">
       <div class="row">
@@ -120,26 +120,26 @@
             </div>
             <div class="col">
               <select id="sort-by" class="form-select">
-                  <option value="title">Title</option>
-                  <option value="publicationYear">Publication Year</option>
-                  <option value="author">Author</option>
-                  <option value="genre">Genre</option>
-                  <option value="availableStatus">Available Status</option>
+                <option value="title">Title</option>
+                <option value="publicationYear">Publication Year</option>
+                <option value="author">Author</option>
+                <option value="genre">Genre</option>
+                <option value="availableStatus">Available Status</option>
               </select>
             </div>
             <div class="col">
               <select id="sort-val" class="form-select">
-                  <option value="ASC">Ascending</option>
-                  <option value="DEC">Descending</option>
+                <option value="ASC">Ascending</option>
+                <option value="DEC">Descending</option>
               </select>
             </div>
             <div class="col-auto">
               <button type="button" class="btn btn-primary" onclick="sort()" style="margin-bottom: 5px;">Sort</button>
             </div>
-
+            
           </div>
         </div>
-
+        
         <div class="col-md-6">
           <div class="row align-items-center g2">
             <div class="col-auto">
@@ -161,5 +161,6 @@
     <section id="pagination" class="pagination"></section>
   </main>
   <script src="../js/shop.js"></script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>
