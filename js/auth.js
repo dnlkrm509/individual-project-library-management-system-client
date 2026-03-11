@@ -1,5 +1,6 @@
 const responseLogin = document.getElementById('response-login');
 const responseSignup = document.getElementById('response-signup');
+const inputDivs = document.querySelectorAll('.input-div')
 
 async function login() {
     try {
@@ -19,8 +20,22 @@ async function login() {
         
         
         const loginData = await response.json();
-        console.log(loginData)
+        console.log(loginData);
         responseLogin.classList.remove('user-message', 'user-message--error', 'user-message--success');
+        inputDivs.forEach(div => {
+            const input = div.querySelector('input');
+            if (input) {
+                input.classList.remove('invalid');
+            }
+        });
+        loginData.validationErrors?.forEach(error => {
+            const input = document.querySelector(`.input-div input[id="${error.path}-login"]`);
+            console.log(input)
+            if (input) {
+                input.classList.add('invalid');
+            }
+        });
+
         responseLogin.innerHTML = "";
 
         if (!response.ok) {
@@ -66,12 +81,28 @@ async function signup() {
         });
 
         const signupData = await response.json();
+        console.log(signupData);
         responseSignup.classList.remove('user-message', 'user-message--error', 'user-message--success');
+        inputDivs.forEach(div => {
+            const input = div.querySelector('input');
+            if (input) {
+                input.classList.remove('invalid');
+            }
+        });
+        signupData.validationErrors?.forEach(error => {
+            const input = document.querySelector(`.input-div input[id="${error.path}-signup"]`);
+            console.log(input)
+            if (input) {
+                input.classList.add('invalid');
+            }
+        });
+        
         responseSignup.innerHTML = "";
 
         if (!response.ok) {
             responseSignup.classList.add('user-message', 'user-message--error');
             responseSignup.innerHTML = "HTTP error: " + response.status;
+            
         }
         if (response.status !== 200) {
             return responseSignup.innerHTML += ", Error Message: " + signupData.errorMessage;
