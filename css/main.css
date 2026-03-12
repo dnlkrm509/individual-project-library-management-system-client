@@ -77,7 +77,9 @@ h5 {
 
 .item p,
 .item a,
-.item span.copies {
+.item span.copies,
+table th,
+table td {
     letter-spacing: 1px;
     color: #666; /* lighter than h3 */
     text-shadow: 
@@ -86,11 +88,11 @@ h5 {
 }
 
 .record-entry {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background-color: #f9f9f9;
+  background-color: #8ea6c1;
 }
 
 .record-entry h3 {

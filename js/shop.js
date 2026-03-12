@@ -95,34 +95,76 @@ async function search(page, sort) {
 
     if (sort === true) data.resources.sort(compare);
 
+    let rows = '';
+    let scope = 0;
+
     data.resources.forEach(resource => {
-      const div = document.createElement('div');
-      div.classList.add('item');
-
       const actionHTML = getActionButtonHTML(resource, borrowedResources, data.loggedInUser?.role === "admin");
-
-      div.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mx-auto">
-          <h3 class="mb-0">${resource.title} -</h3>
-          <span class="p-2 d-flex flex-column">
-            <span class="fw-bold rating text-warning">
-              ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
-            </span>
-            <span class="copies">
-              Copies: ${resource.copies}
-            </span>
-          </span>
-        </div>
-        <p><strong>Author:</strong> ${resource.author}</p>
-        <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
-        <div class="buttons">
-          <a class="btn text-success" href="${detail}?id=${resource._id}">Details</a>
-          ${actionHTML}
-        </div>
+      scope++;
+      rows += `
+        <tr>
+          <th scope="row">${scope}</th>
+          <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
+          <td>${resource.copies}</td>
+          <td><h5 class"mb-0">${resource.title}</h5></td>
+          <td>${resource.author}</td>
+          <td>${resource.publicationYear}</td>
+          <td>${resource.genre}</td>
+          <td><a class="btn text-success" href="${detail}?id=${resource._id}">Details</a></td>
+          <td>${actionHTML}</td>
+        </tr>
       `;
-
-      container.appendChild(div);
     });
+
+    container.innerHTML = `
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Row Num</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Copies</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Year</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Details</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    `;
+
+    // data.resources.forEach(resource => {
+    //   const div = document.createElement('div');
+    //   div.classList.add('item');
+
+    //   const actionHTML = getActionButtonHTML(resource, borrowedResources, data.loggedInUser?.role === "admin");
+
+    //   div.innerHTML = `
+    //     <div class="d-flex justify-content-between align-items-center mx-auto">
+    //       <h3 class="mb-0">${resource.title} -</h3>
+    //       <span class="p-2 d-flex flex-column">
+    //         <span class="fw-bold rating text-warning">
+    //           ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+    //         </span>
+    //         <span class="copies">
+    //           Copies: ${resource.copies}
+    //         </span>
+    //       </span>
+    //     </div>
+    //     <p><strong>Author:</strong> ${resource.author}</p>
+    //     <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
+    //     <div class="buttons">
+    //       <a class="btn text-success" href="${detail}?id=${resource._id}">Details</a>
+    //       ${actionHTML}
+    //     </div>
+    //   `;
+
+    //   container.appendChild(div);
+    // });
 
     // Render pagination
     renderPagination({
@@ -367,36 +409,76 @@ async function fetchResource() {
     container.innerHTML = '';
 
 
-    const div = document.createElement('div');
-    div.classList.add('item');
+    // const div = document.createElement('div');
+    // div.classList.add('item');
 
     const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || [];
 
     const actionHTML = getActionButtonHTML(resourceData.resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
 
+    let rows = '';
+    let scope = 0;
 
-    div.innerHTML = `
-      <div class="d-flex justify-content-between align-items-center mx-auto">
-        <h3 class="mb-0">${resourceData.resource.title} -</h3>
-        <span class="p-2 d-flex flex-column">
-          <span class="fw-bold rating text-warning">
-            ⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}
-          </span>
-          <span class="copies">
-            Copies: ${resourceData.resource.copies}
-          </span>
-        </span>
-      </div>
-      <p><strong>Author:</strong> ${resourceData.resource.author}</p>
-      <p><strong>Year:</strong> ${resourceData.resource.publicationYear} - <strong>Genre:</strong> ${resourceData.resource.genre}</p>`;
-      if (resourceData.isAuthenticated) {
-        div.innerHTML += `
-        <div class="buttons">
-          ${actionHTML}
-        </div>
-      `;
-      }
-      container.appendChild(div);
+    scope++;
+    rows += `
+      <tr>
+        <th scope="row">${scope}</th>
+        <td>⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}</td>
+        <td>${resourceData.resource.copies}</td>
+        <td><h5 class="mb-0">${resourceData.resource.title}</h5></td>
+        <td>${resourceData.resource.author}</td>
+        <td>${resourceData.resource.publicationYear}</td>
+        <td>${resourceData.resource.genre}</td>
+    `;
+
+    if (resourceData.isAuthenticated) {
+      rows += `<td>${actionHTML}</td>`;
+    }
+
+    rows += `</tr>`;
+
+    container.innerHTML = `
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Row Num</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Copies</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Year</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    `;
+
+    // div.innerHTML = `
+    //   <div class="d-flex justify-content-between align-items-center mx-auto">
+    //     <h3 class="mb-0">${resourceData.resource.title} -</h3>
+    //     <span class="p-2 d-flex flex-column">
+    //       <span class="fw-bold rating text-warning">
+    //         ⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}
+    //       </span>
+    //       <span class="copies">
+    //         Copies: ${resourceData.resource.copies}
+    //       </span>
+    //     </span>
+    //   </div>
+    //   <p><strong>Author:</strong> ${resourceData.resource.author}</p>
+    //   <p><strong>Year:</strong> ${resourceData.resource.publicationYear} - <strong>Genre:</strong> ${resourceData.resource.genre}</p>`;
+    //   if (resourceData.isAuthenticated) {
+    //     div.innerHTML += `
+    //     <div class="buttons">
+    //       ${actionHTML}
+    //     </div>
+    //   `;
+    //   }
+    //   container.appendChild(div);
 
       const reviewContainer = document.getElementById('reviewsContainer');
       
@@ -449,35 +531,80 @@ async function fetchResource() {
 
     const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || null;
 
+    let rows = '';
+    let scope = 0;
+
     resourceData.resource.forEach(resource => {
-      const div = document.createElement('div');
-      div.classList.add('item');
-
       const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
-
-      div.innerHTML = `
-        <h3 class="mb-0">${resource.title}</h3>
-        <div class="d-flex justify-content-between align-items-center mx-auto w-75">
-          <p class="mt-3"><strong>Relationship Score:</strong> ${resource.relationshipScore}</p>
-          <span class="p-2 d-flex flex-column">
-            <span class="fw-bold rating text-warning">
-              ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
-            </span>
-            <span class="copies">
-              Copies: ${resource.copies}
-            </span>
-          </span>
-        </div>
-        <p><strong>Author:</strong> ${resource.author}</p>
-        <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
-        <div class="buttons">
-          <a class="btn text-success" href="./detail.html?id=${resource._id}">Details</a>
-          ${actionHTML}
-        </div>
+      console.log(resource)
+      scope++;
+      rows += `
+        <tr>
+          <th scope="row">${scope}</th>
+          <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
+          <td>${resource.copies}</td>
+          <td><h5 class"mb-0">${resource.title}</h5></td>
+          <td>${resource.relationshipScore}</td>
+          <td>${resource.author}</td>
+          <td>${resource.publicationYear}</td>
+          <td>${resource.genre}</td>
+          <td><a class="btn text-success" href="./detail.html?id=${resource._id}">Details</a></td>
+          <td>${actionHTML}</td>
+        </tr>
       `;
-
-      container.appendChild(div);
     });
+
+    container.innerHTML = `
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Row Num</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Copies</th>
+          <th scope="col">Title</th>
+          <th scpoe="col">Relationship Score</th>
+          <th scope="col">Author</th>
+          <th scope="col">Year</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Details</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    `;
+
+    // resourceData.resource.forEach(resource => {
+    //   const div = document.createElement('div');
+    //   div.classList.add('item');
+
+    //   const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
+
+    //   div.innerHTML = `
+    //     <h3 class="mb-0">${resource.title}</h3>
+    //     <div class="d-flex justify-content-between align-items-center mx-auto w-75">
+    //       <p class="mt-3"><strong>Relationship Score:</strong> ${resource.relationshipScore}</p>
+    //       <span class="p-2 d-flex flex-column">
+    //         <span class="fw-bold rating text-warning">
+    //           ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+    //         </span>
+    //         <span class="copies">
+    //           Copies: ${resource.copies}
+    //         </span>
+    //       </span>
+    //     </div>
+    //     <p><strong>Author:</strong> ${resource.author}</p>
+    //     <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
+    //     <div class="buttons">
+    //       <a class="btn text-success" href="./detail.html?id=${resource._id}">Details</a>
+    //       ${actionHTML}
+    //     </div>
+    //   `;
+
+    //   container.appendChild(div);
+    // });
 }
 
 async function fetchBorrowed() {
@@ -505,32 +632,73 @@ async function fetchBorrowed() {
             return;
         }
 
+        let rows = '';
+        let scope = 0;
+
         borrowedResources.resources.forEach(resource => {
-            const div = document.createElement('div');
-            div.classList.add('item');
-
-            div.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center mx-auto">
-                  <h3 class="mb-0">${resource.title} -</h3>
-                  <span class="p-2 d-flex flex-column">
-                    <span class="fw-bold rating text-warning">
-                      ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
-                    </span>
-                    <span class="copies">
-                      Copies: ${resource.copies}
-                    </span>
-                  </span>
-                </div>
-                <h6 class="text-success">Due Date: ${resource.dueDate || 'N/A'}</h6>
-                <p><strong>Author:</strong> ${resource.author}</p>
-                <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
-                <div class="buttons">
-                    <a class="btn btn-outline-info" href="./checkout.html?resourceId=${resource._id}">Return</a>
-                </div>
-            `;
-
-            container.appendChild(div);
+          scope++;
+          rows += `
+            <tr>
+              <th scope="row">${scope}</th>
+              <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
+              <td>${resource.copies}</td>
+              <td><h5 class"mb-0">${resource.title}</h5></td>
+              <td>${resource.author}</td>
+              <td>${resource.publicationYear}</td>
+              <td>${resource.genre}</td>
+              <td><h6 class="text-success">${resource.dueDate || 'N/A'}</h6></td>
+              <td><a class="btn btn-outline-info" href="./checkout.html?resourceId=${resource._id}">Return</a></td>
+            </tr>
+          `;
         });
+
+        container.innerHTML = `
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Row Num</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Copies</th>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Year</th>
+              <th scope="col">Genre</th>
+              <th scope="col">Due Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+        `;
+
+        // borrowedResources.resources.forEach(resource => {
+        //     const div = document.createElement('div');
+        //     div.classList.add('item');
+
+        //     div.innerHTML = `
+        //         <div class="d-flex justify-content-between align-items-center mx-auto">
+        //           <h3 class="mb-0">${resource.title} -</h3>
+        //           <span class="p-2 d-flex flex-column">
+        //             <span class="fw-bold rating text-warning">
+        //               ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+        //             </span>
+        //             <span class="copies">
+        //               Copies: ${resource.copies}
+        //             </span>
+        //           </span>
+        //         </div>
+        //         <h6 class="text-success">Due Date: ${resource.dueDate || 'N/A'}</h6>
+        //         <p><strong>Author:</strong> ${resource.author}</p>
+        //         <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
+        //         <div class="buttons">
+        //             <a class="btn btn-outline-info" href="./checkout.html?resourceId=${resource._id}">Return</a>
+        //         </div>
+        //     `;
+
+        //     container.appendChild(div);
+        // });
     } catch (error) {
         console.error(error);
         document.getElementById('resource-grid').innerHTML = '<h1>Error loading borrowed resources.</h1>';
@@ -563,32 +731,69 @@ async function fetchBorrowedHistory() {
       return;
     }
 
+    let rows = '';
+    let scope = 0;
+
     borrowHistoryData.returneds.forEach(record => {
       const recordDiv = document.createElement('div');
       recordDiv.classList.add('record-entry');
-
-      const innerItems = `
-          <div class="item">
-            <div class="d-flex justify-content-between align-items-center mx-auto">
-            <h3 class="mb-0">${record.resources.title} -</h3>
-            <span class="p-2 d-flex flex-column">
-              <span class="fw-bold rating text-warning">
-                ⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}
-              </span>
-              <span class="copies">
-                Copies: ${record.resources.copies}
-              </span>
-            </span>
-          </div>
-          <p><strong>Author:</strong> ${record.resources.author}</p>
-          <p><strong>Year:</strong> ${record.resources.publicationYear} - <strong>Genre:</strong> ${record.resources.genre}</p>
-          <p><strong>Returned Date:</strong> ${record.resources.returnedDate || 'N/A'}</p>
-        </div>
+      
+      scope++;
+      rows = `
+        <tr>
+          <th scope="row">${scope}</th>
+          <td>⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}</td>
+          <td>${record.resources.copies}</td>
+          <td><h5 class"mb-0">${record.resources.title}</h5></td>
+          <td>${record.resources.author}</td>
+          <td>${record.resources.publicationYear}</td>
+          <td>${record.resources.genre}</td>
+          <td><h6 class="text-success">${record.resources.returnedDate || 'N/A'}</h6></td>
+        </tr>
       `;
 
+      const innerItems = `
+
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Row Num</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Copies</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Year</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Returned Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    `;
+
+      //     <div class="item">
+      //       <div class="d-flex justify-content-between align-items-center mx-auto">
+      //       <h3 class="mb-0">${record.resources.title} -</h3>
+      //       <span class="p-2 d-flex flex-column">
+      //         <span class="fw-bold rating text-warning">
+      //           ⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}
+      //         </span>
+      //         <span class="copies">
+      //           Copies: ${record.resources.copies}
+      //         </span>
+      //       </span>
+      //     </div>
+      //     <p><strong>Author:</strong> ${record.resources.author}</p>
+      //     <p><strong>Year:</strong> ${record.resources.publicationYear} - <strong>Genre:</strong> ${record.resources.genre}</p>
+      //     <p><strong>Returned Date:</strong> ${record.resources.returnedDate || 'N/A'}</p>
+      //   </div>
+      // `;
+
       recordDiv.innerHTML = `
-        <h3>#${record._id} - <button class="btn text-success" onclick="downloadInvoice('${record._id}')" style="border: none;">Invoice</button></h3>
-        <div class="item-grid">
+        <h3>#${record._id} - <button class="btn text-warning bg-dark" onclick="downloadInvoice('${record._id}')" style="border: none;">Invoice</button></h3>
+        <div class="container">
           ${innerItems}
         </div>
       `;

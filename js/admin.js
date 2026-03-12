@@ -158,32 +158,73 @@ async function fetchResources() {
       return;
     }
 
+    let rows = '';
+    let scope = 0;
+
     data.resources.forEach(resource => {
-      const div = document.createElement('div');
-      div.classList.add('item');
-
-      div.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mx-auto">
-          <h3 class="mb-0">${resource.title} -</h3>
-          <span class="p-2 d-flex flex-column">
-            <span class="fw-bold rating text-warning">
-              ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
-            </span>
-            <span class="copies">
-              Copies: ${resource.copies}
-            </span>
-          </span>
-        </div>
-        <p><strong>Author:</strong> ${resource.author}</p>
-        <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
-        <div class="buttons">
-          <a class="btn text-success" href="edit-resource.html?id=${resource._id}">Edit</a>
-          <button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button>
-        </div>
+      scope++;
+      rows += `
+        <tr>
+          <th scope="row">${scope}</th>
+          <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
+          <td>${resource.copies}</td>
+          <td><h5 class"mb-0">${resource.title}</h5></td>
+          <td>${resource.author}</td>
+          <td>${resource.publicationYear}</td>
+          <td>${resource.genre}</td>
+          <td><a class="btn text-success" href="edit-resource.html?id=${resource._id}">Edit</a></td>
+          <td><button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button></td>
+        </tr>
       `;
-
-      container.appendChild(div);
     });
+
+    container.innerHTML = `
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Row Num</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Copies</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Year</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    `;
+
+    // data.resources.forEach(resource => {
+    //   const div = document.createElement('div');
+    //   div.classList.add('item');
+
+    //   div.innerHTML = `
+    //     <div class="d-flex justify-content-between align-items-center mx-auto">
+    //       <h3 class="mb-0">${resource.title} -</h3>
+    //       <span class="p-2 d-flex flex-column">
+    //         <span class="fw-bold rating text-warning">
+    //           ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+    //         </span>
+    //         <span class="copies">
+    //           Copies: ${resource.copies}
+    //         </span>
+    //       </span>
+    //     </div>
+    //     <p><strong>Author:</strong> ${resource.author}</p>
+    //     <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
+    //     <div class="buttons">
+    //       <a class="btn text-success" href="edit-resource.html?id=${resource._id}">Edit</a>
+    //       <button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button>
+    //     </div>
+    //   `;
+
+    //   container.appendChild(div);
+    // });
 
   } catch (error) {
     console.error(error);
