@@ -64,6 +64,7 @@ async function loadEditForm() {
     document.getElementById('author').value = data.author;
     document.getElementById('publicationYear').value = data.publicationYear;
     document.getElementById('genre').value = data.genre;
+    document.getElementById('copies').value = data.copies;
 
     document.querySelector('.edit-form .btn').textContent = 'Update Resource';
 
@@ -163,9 +164,14 @@ async function fetchResources() {
 
       div.innerHTML = `
         <div class="d-flex justify-content-between align-items-center mx-auto">
-          <h3 class="mb-0">${resource.title}</h3>
-          <span class="fw-bold text-warning">
-            ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+          <h3 class="mb-0">${resource.title} -</h3>
+          <span class="p-2 d-flex flex-column">
+            <span class="fw-bold rating text-warning">
+              ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+            </span>
+            <span class="copies">
+              Copies: ${resource.copies}
+            </span>
           </span>
         </div>
         <p><strong>Author:</strong> ${resource.author}</p>
@@ -230,6 +236,7 @@ async function fetchReport(val = 'all') {
           <th scope="row">${scope}</th>
           <td>${report.resourceId}</td>
           <td>${report.resourceTitle}</td>
+          <td>${report.copies}</td>
           <td>${report.email}</td>
           <td>${report.borrowDate}</td>
           <td>${report.dueDate}</td>
@@ -245,6 +252,7 @@ async function fetchReport(val = 'all') {
           <th scope="col">Row Num</th>
           <th scope="col">Resource ID</th>
           <th scope="col">Resource Title</th>
+          <th scope="col">Resource Copies</th>
           <th scope="col">User Email</th>
           <th scope="col">Borrowed At</th>
           <th scope="col">Due Date</th>
@@ -276,12 +284,14 @@ async function updateResource() {
   const author = document.getElementById('author').value.trim();
   const year = document.getElementById('publicationYear').value.trim();
   const genre = document.getElementById('genre').value.trim();
+  const copies = document.getElementById('copies').value.trim();
 
   const payload = {
     title,
     author,
     year,
-    genre
+    genre,
+    copies
   };
 
 

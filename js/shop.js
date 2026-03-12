@@ -103,9 +103,14 @@ async function search(page, sort) {
 
       div.innerHTML = `
         <div class="d-flex justify-content-between align-items-center mx-auto">
-          <h3 class="mb-0">${resource.title}</h3>
-          <span class="fw-bold text-warning">
-            ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+          <h3 class="mb-0">${resource.title} -</h3>
+          <span class="p-2 d-flex flex-column">
+            <span class="fw-bold rating text-warning">
+              ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+            </span>
+            <span class="copies">
+              Copies: ${resource.copies}
+            </span>
           </span>
         </div>
         <p><strong>Author:</strong> ${resource.author}</p>
@@ -372,9 +377,14 @@ async function fetchResource() {
 
     div.innerHTML = `
       <div class="d-flex justify-content-between align-items-center mx-auto">
-        <h3 class="mb-0">${resourceData.resource.title}</h3>
-        <span class="fw-bold text-warning">
-          ⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}
+        <h3 class="mb-0">${resourceData.resource.title} -</h3>
+        <span class="p-2 d-flex flex-column">
+          <span class="fw-bold rating text-warning">
+            ⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}
+          </span>
+          <span class="copies">
+            Copies: ${resourceData.resource.copies}
+          </span>
         </span>
       </div>
       <p><strong>Author:</strong> ${resourceData.resource.author}</p>
@@ -446,11 +456,16 @@ async function fetchResource() {
       const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
 
       div.innerHTML = `
-      <h3 class="mb-0">${resource.title}</h3>
+        <h3 class="mb-0">${resource.title}</h3>
         <div class="d-flex justify-content-between align-items-center mx-auto w-75">
           <p class="mt-3"><strong>Relationship Score:</strong> ${resource.relationshipScore}</p>
-          <span class="fw-bold text-warning">
-            ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+          <span class="p-2 d-flex flex-column">
+            <span class="fw-bold rating text-warning">
+              ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+            </span>
+            <span class="copies">
+              Copies: ${resource.copies}
+            </span>
           </span>
         </div>
         <p><strong>Author:</strong> ${resource.author}</p>
@@ -496,9 +511,14 @@ async function fetchBorrowed() {
 
             div.innerHTML = `
                 <div class="d-flex justify-content-between align-items-center mx-auto">
-                  <h3 class="mb-0">${resource.title}</h3>
-                  <span class="fw-bold text-warning">
-                    ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+                  <h3 class="mb-0">${resource.title} -</h3>
+                  <span class="p-2 d-flex flex-column">
+                    <span class="fw-bold rating text-warning">
+                      ⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}
+                    </span>
+                    <span class="copies">
+                      Copies: ${resource.copies}
+                    </span>
                   </span>
                 </div>
                 <h6 class="text-success">Due Date: ${resource.dueDate || 'N/A'}</h6>
@@ -548,11 +568,16 @@ async function fetchBorrowedHistory() {
       recordDiv.classList.add('record-entry');
 
       const innerItems = `
-        <div class="item">
-          <div class="d-flex justify-content-between align-items-center mx-auto">
-            <h3 class="mb-0">${record.resources.title}</h3>
-            <span class="fw-bold text-warning">
-              ⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}
+          <div class="item">
+            <div class="d-flex justify-content-between align-items-center mx-auto">
+            <h3 class="mb-0">${record.resources.title} -</h3>
+            <span class="p-2 d-flex flex-column">
+              <span class="fw-bold rating text-warning">
+                ⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}
+              </span>
+              <span class="copies">
+                Copies: ${record.resources.copies}
+              </span>
             </span>
           </div>
           <p><strong>Author:</strong> ${record.resources.author}</p>

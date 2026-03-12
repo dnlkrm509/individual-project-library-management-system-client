@@ -36,8 +36,8 @@
         <div class="col-1">
           <label for="title">Title: </label>
         </div>
-        <div class="col-4">
-          <input type="text" name="title" id="title" placeholder="Title" required />
+        <div class="col-8">
+          <input type="text" name="title" id="title" placeholder="Title" style="width: 30%" required />
         </div>
       </div>
       <div class="row mb-3">
@@ -45,7 +45,7 @@
           <label for="author">Author: </label>
         </div>
         <div class="col-8">
-          <input type="text" name="author" id="author" placeholder="Author Name" required />
+          <input type="text" name="author" id="author" placeholder="Author Name" style="width: 30%" required />
         </div>
       </div>
       <div class="row mb-3">
@@ -53,7 +53,7 @@
           <label for="publicationYear">Year: </label>
         </div>
         <div class="col-8">
-          <input type="number" name="publicationYear" id="publicationYear" placeholder="2023" required />
+          <input type="number" name="publicationYear" id="publicationYear" placeholder="2023" style="width: 30%" required />
         </div>
       </div>
       <div class="row mb-3">
@@ -61,7 +61,15 @@
           <label for="genre">Genre: </label>
         </div>
         <div class="col-8">
-          <input type="text" name="genre" id="genre" placeholder="Genre" required />
+          <input type="text" name="genre" id="genre" placeholder="Genre" style="width: 30%" required />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-1">
+          <label for="copies">Copies: </label>
+        </div>
+        <div class="col-8">
+          <input type="number" name="copies" id="copies" placeholder="Number of copies between 1-5" min="1" max="5" style="width: 30%" required />
         </div>
       </div>
       <button type="button" onclick="updateResource()" class="btn btn-outline-success">Add Resource</button>

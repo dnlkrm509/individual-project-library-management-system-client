@@ -67,7 +67,7 @@ h5 {
         0 5px 10px rgba(75,163,60,0.2);
 }
 
-.item span {
+.item span.rating {
     letter-spacing: 1px;
     color: #eef289; /* strongest color */
     text-shadow: 
@@ -76,7 +76,8 @@ h5 {
 }
 
 .item p,
-.item a {
+.item a,
+.item span.copies {
     letter-spacing: 1px;
     color: #666; /* lighter than h3 */
     text-shadow: 
