@@ -51,7 +51,7 @@ h5 {
     align-items: center;
 }
 
-.item h3 {
+h1, h2, h3, h4, h5 {
     letter-spacing: 1px;
     color: #111; /* strongest color */
     text-shadow: 
@@ -59,7 +59,7 @@ h5 {
         0 5px 10px rgba(0,0,0,0.2);
 }
 
-.item h6 {
+h6 {
     letter-spacing: 1px;
     color: #51c244; /* strongest color */
     text-shadow: 
@@ -67,7 +67,7 @@ h5 {
         0 5px 10px rgba(75,163,60,0.2);
 }
 
-.item span.rating {
+span.rating {
     letter-spacing: 1px;
     color: #eef289; /* strongest color */
     text-shadow: 
@@ -75,11 +75,10 @@ h5 {
         0 5px 10px rgba(240,243,97,0.4);
 }
 
-.item p,
-.item a,
-.item span.copies,
-table th,
-table td {
+label, p,
+a,
+span.copies,
+button {
     letter-spacing: 1px;
     color: #666; /* lighter than h3 */
     text-shadow: 
