@@ -42,9 +42,11 @@
     .then(res => res.json())
     .then(data => {
       document.body.innerHTML += `
-        <h1>Thank you!</h1>
-        <p>Your resource has been returned successfully.</p>
-        <a class="btn text-success" href="./resources.html">Back to Resources</a>
+        <div style="margin: 1%">
+          <h1>Thank you!</h1>
+          <p style="margin: 1%">Your resource has been returned successfully.</p>
+          <a class="link-peimary link-opacity-50-hover" href="./resources.html">Back to Resources</a>
+        </div>
       `;
     })
     .catch(err => {

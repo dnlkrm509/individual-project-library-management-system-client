@@ -85,7 +85,7 @@ async function search(page, sort) {
       return;
     }
 
-    const borrowedResources = data.loggedInUser?.borrowedItems?.resources || null;
+    const borrowedResources = data.loggedInUser?.role === 'user' ? data.loggedInUser?.borrowedItems?.resources || null : null;
 
     let detail = "./detail.html";
 
@@ -96,13 +96,18 @@ async function search(page, sort) {
     if (searchText.trim().length > 0 && sortBy.value !== '' && sortVal.value!== '') {
       sort = true;
     }
+
+    if (page > 1 && sortBy.value !== '' && sortVal.value!== '') {
+      sort = true;
+    }
+
     if (sort === true) data.resources.sort(compare);
 
     let rows = '';
     let scope = 0;
 
     data.resources.forEach(resource => {
-      const actionHTML = getActionButtonHTML(resource, borrowedResources, data.loggedInUser?.role === "admin");
+      const actionHTML = getActionButtonHTML(resource, borrowedResources);
       scope++;
       rows += `
         <tr>
@@ -113,7 +118,7 @@ async function search(page, sort) {
           <td>${resource.author}</td>
           <td>${resource.publicationYear}</td>
           <td>${resource.genre}</td>
-          <td><a class="btn text-success" href="${detail}?id=${resource._id}">Details</a></td>
+          <td><a class="link-peimary link-opacity-50-hover" href="${detail}?id=${resource._id}">Details</a></td>
           <td>${actionHTML}</td>
         </tr>
       `;
@@ -161,7 +166,7 @@ async function search(page, sort) {
     //     <p><strong>Author:</strong> ${resource.author}</p>
     //     <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
     //     <div class="buttons">
-    //       <a class="btn text-success" href="${detail}?id=${resource._id}">Details</a>
+    //       <a class="link-peimary link-opacity-50-hover" href="${detail}?id=${resource._id}">Details</a>
     //       ${actionHTML}
     //     </div>
     //   `;
@@ -220,9 +225,13 @@ function renderPagination({ currentPage, previousPage, nextPage, lastPage, hasPr
 }
 
 
-function getActionButtonHTML(resource, borrowedResources = null, isAdmin) {
-  if (isAdmin || !borrowedResources) {
-    return '';
+function getActionButtonHTML(resource, borrowedResources = null) {
+  if (!borrowedResources && !resource.availableStatus) {
+    return `<p class="text-danger">Not Available</p>`;
+  }
+
+  if (!borrowedResources) {
+    return `<p class="text-success">Available</p>`;
   }
 
   const hasBorrowed = borrowedResources.find(
@@ -234,7 +243,7 @@ function getActionButtonHTML(resource, borrowedResources = null, isAdmin) {
   }
 
   if (!hasBorrowed && !resource.availableStatus) {
-    return `<p style="color: red; margin-top: 0.75rem;">Item is not available</p>`;
+    return `<p class="text-danger">Not Available</p>`;
   }
 
   let checkout = './checkout.html';
@@ -247,7 +256,9 @@ function getActionButtonHTML(resource, borrowedResources = null, isAdmin) {
     return `<a class="btn btn-outline-info" href="${checkout}?resourceId=${resource._id}">Return</a>`;
   }
 
-  return `<button class="btn btn-outline-success" onclick="borrowResource('${resource._id}')">Borrow</button>`;
+  // This line is not needed any longer, because if a user has borrowed a book,
+  // for the user, this book does not appear on the screen anymore 
+  // return `<button class="btn btn-outline-success" onclick="borrowResource('${resource._id}')">Borrow</button>`;
 }
 
 
@@ -417,7 +428,7 @@ async function fetchResource() {
 
     const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || [];
 
-    const actionHTML = getActionButtonHTML(resourceData.resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
+    const actionHTML = getActionButtonHTML(resourceData.resource, borrowedResources);
 
     let rows = '';
     let scope = 0;
@@ -538,7 +549,7 @@ async function fetchResource() {
     let scope = 0;
 
     resourceData.resource.forEach(resource => {
-      const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
+      const actionHTML = getActionButtonHTML(resource, borrowedResources);
       console.log(resource)
       scope++;
       rows += `
@@ -551,7 +562,7 @@ async function fetchResource() {
           <td>${resource.author}</td>
           <td>${resource.publicationYear}</td>
           <td>${resource.genre}</td>
-          <td><a class="btn text-success" href="./detail.html?id=${resource._id}">Details</a></td>
+          <td><a class="link-peimary link-opacity-50-hover" href="./detail.html?id=${resource._id}">Details</a></td>
           <td>${actionHTML}</td>
         </tr>
       `;
@@ -583,7 +594,7 @@ async function fetchResource() {
     //   const div = document.createElement('div');
     //   div.classList.add('item');
 
-    //   const actionHTML = getActionButtonHTML(resource, borrowedResources, resourceData.loggedInUser?.role === "admin");
+    //   const actionHTML = getActionButtonHTML(resource, borrowedResources);
 
     //   div.innerHTML = `
     //     <h3 class="mb-0">${resource.title}</h3>
@@ -601,7 +612,7 @@ async function fetchResource() {
     //     <p><strong>Author:</strong> ${resource.author}</p>
     //     <p><strong>Year:</strong> ${resource.publicationYear} - <strong>Genre:</strong> ${resource.genre}</p>
     //     <div class="buttons">
-    //       <a class="btn text-success" href="./detail.html?id=${resource._id}">Details</a>
+    //       <a class="link-peimary link-opacity-50-hover" href="./detail.html?id=${resource._id}">Details</a>
     //       ${actionHTML}
     //     </div>
     //   `;

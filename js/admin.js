@@ -172,7 +172,7 @@ async function fetchResources() {
           <td>${resource.author}</td>
           <td>${resource.publicationYear}</td>
           <td>${resource.genre}</td>
-          <td><a class="btn text-success" href="edit-resource.html?id=${resource._id}">Edit</a></td>
+          <td><a class="link-peimary link-opacity-50-hover" href="edit-resource.html?id=${resource._id}">Edit</a></td>
           <td><button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button></td>
         </tr>
       `;
