@@ -149,7 +149,7 @@ async function search(page, sort) {
     //   const div = document.createElement('div');
     //   div.classList.add('item');
 
-    //   const actionHTML = getActionButtonHTML(resource, borrowedResources, data.loggedInUser?.role === "admin");
+    //   const actionHTML = getActionButtonHTML(resource, borrowedResources);
 
     //   div.innerHTML = `
     //     <div class="d-flex justify-content-between align-items-center mx-auto">
@@ -426,7 +426,7 @@ async function fetchResource() {
     // const div = document.createElement('div');
     // div.classList.add('item');
 
-    const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || [];
+    const borrowedResources = resourceData.loggedInUser?.role === 'user' ? resourceData.loggedInUser?.borrowedItems?.resources || null : null;
 
     const actionHTML = getActionButtonHTML(resourceData.resource, borrowedResources);
 
@@ -543,7 +543,7 @@ async function fetchResource() {
       return;
     }
 
-    const borrowedResources = resourceData.loggedInUser?.borrowedItems?.resources || null;
+    const borrowedResources = resourceData.loggedInUser?.role === 'user' ? resourceData.loggedInUser?.borrowedItems?.resources || null : null;
 
     let rows = '';
     let scope = 0;
