@@ -93,6 +93,9 @@ async function search(page, sort) {
       detail = "./shop/detail.html";
     }
 
+    if (sortBy.value !== '' && sortVal.value!== '') {
+      sort = true;
+    }
     if (sort === true) data.resources.sort(compare);
 
     let rows = '';
