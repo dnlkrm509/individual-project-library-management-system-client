@@ -93,7 +93,7 @@ async function search(page, sort) {
       detail = "./shop/detail.html";
     }
 
-    if (searchText.trim() !== '' && sortBy.value !== '' && sortVal.value!== '') {
+    if (searchText.trim().length > 0 && sortBy.value !== '' && sortVal.value!== '') {
       sort = true;
     }
     if (sort === true) data.resources.sort(compare);
