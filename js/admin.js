@@ -165,13 +165,13 @@ async function fetchResources() {
       scope++;
       rows += `
         <tr>
-          <th scope="row">${scope}</th>
-          <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
-          <td>${resource.copies}</td>
+          <th scope="row"><p class="mb-0">${scope}</p></th>
+          <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+          <td><p class="mb-0">${resource.copies}</p></td>
           <td><h5 class"mb-0">${resource.title}</h5></td>
-          <td>${resource.author}</td>
-          <td>${resource.publicationYear}</td>
-          <td>${resource.genre}</td>
+          <td><p class="mb-0">${resource.author}</p></td>
+          <td><p class="mb-0">${resource.publicationYear}</p></td>
+          <td><p class="mb-0">${resource.genre}</p></td>
           <td><a class="link-peimary link-opacity-50-hover" href="edit-resource.html?id=${resource._id}">Edit</a></td>
           <td><button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button></td>
         </tr>
@@ -274,14 +274,14 @@ async function fetchReport(val = 'all') {
       scope++;
       rows += `
         <tr>
-          <th scope="row">${scope}</th>
-          <td>${report.resourceId}</td>
-          <td>${report.resourceTitle}</td>
-          <td>${report.copies}</td>
-          <td>${report.email}</td>
-          <td>${report.borrowDate}</td>
-          <td>${report.dueDate}</td>
-          <td>${report.returned ? report.returnedDate : 'Not returned'}</td>
+          <th scope="row"><p class="mb-0">${scope}</p></th>
+          <td><p class="mb-0">${report.resourceId}</p></td>
+          <td><p class="mb-0">${report.resourceTitle}</p></td>
+          <td><p class="mb-0">${report.copies}</p></td>
+          <td><p class="mb-0">${report.email}</p></td>
+          <td><p class="mb-0">${report.borrowDate}</p></td>
+          <td><p class="mb-0">${report.dueDate}</p></td>
+          <td><p class="mb-0">${report.returned ? report.returnedDate : 'Not returned'}</p></td>
         </tr>
       `;
     });

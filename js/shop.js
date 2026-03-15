@@ -111,13 +111,13 @@ async function search(page, sort) {
       scope++;
       rows += `
         <tr>
-          <th scope="row">${scope}</th>
-          <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
-          <td>${resource.copies}</td>
+          <th scope="row"><p class="mb-0">${scope}</p></th>
+          <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+          <td><p class="mb-0">${resource.copies}</td>
           <td><h5 class"mb-0">${resource.title}</h5></td>
           <td><p class="mb-0">${resource.author}</p></td>
-          <td>${resource.publicationYear}</td>
-          <td>${resource.genre}</td>
+          <td><p class="mb-0">${resource.publicationYear}</p></td>
+          <td><p class="mb-0">${resource.genre}</p></td>
           <td><a class="link-peimary link-opacity-50-hover" href="${detail}?id=${resource._id}">Details</a></td>
           <td>${actionHTML}</td>
         </tr>
@@ -436,13 +436,13 @@ async function fetchResource() {
     scope++;
     rows += `
       <tr>
-        <th scope="row">${scope}</th>
-        <td>⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}</td>
-        <td>${resourceData.resource.copies}</td>
+        <th scope="row"><p class="mb-0">${scope}</p></th>
+        <td><p class="mb-0">⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}</p></td>
+        <td><p class="mb-0">${resourceData.resource.copies}</p></td>
         <td><h5 class="mb-0">${resourceData.resource.title}</h5></td>
-        <td>${resourceData.resource.author}</td>
-        <td>${resourceData.resource.publicationYear}</td>
-        <td>${resourceData.resource.genre}</td>
+        <td><p class="mb-0">${resourceData.resource.author}</p></td>
+        <td><p class="mb-0">${resourceData.resource.publicationYear}</p></td>
+        <td><p class="mb-0">${resourceData.resource.genre}</p></td>
     `;
 
     if (resourceData.isAuthenticated) {
@@ -554,14 +554,14 @@ async function fetchResource() {
       scope++;
       rows += `
         <tr>
-          <th scope="row">${scope}</th>
-          <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
-          <td>${resource.copies}</td>
+          <th scope="row"><p class="mb-0">${scope}</p></th>
+          <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+          <td><p class="mb-0">${resource.copies}</p></td>
           <td><h5 class"mb-0">${resource.title}</h5></td>
-          <td>${resource.relationshipScore}</td>
-          <td>${resource.author}</td>
-          <td>${resource.publicationYear}</td>
-          <td>${resource.genre}</td>
+          <td><p class="mb-0">${resource.relationshipScore}</p></td>
+          <td><p class="mb-0">${resource.author}</p></td>
+          <td><p class="mb-0">${resource.publicationYear}</p></td>
+          <td><p class="mb-0">${resource.genre}</p></td>
           <td><a class="link-peimary link-opacity-50-hover" href="./detail.html?id=${resource._id}">Details</a></td>
           <td>${actionHTML}</td>
         </tr>
@@ -653,13 +653,13 @@ async function fetchBorrowed() {
           scope++;
           rows += `
             <tr>
-              <th scope="row">${scope}</th>
-              <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
-              <td>${resource.copies}</td>
+              <th scope="row"><p class="mb-0">${scope}</p></th>
+              <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+              <td><p class="mb-0">${resource.copies}</p></td>
               <td><h5 class"mb-0">${resource.title}</h5></td>
-              <td>${resource.author}</td>
-              <td>${resource.publicationYear}</td>
-              <td>${resource.genre}</td>
+              <td><p class="mb-0">${resource.author}</p></td>
+              <td><p class="mb-0">${resource.publicationYear}</p></td>
+              <td><p class="mb-0">${resource.genre}</p></td>
               <td><h6 class="text-success">${resource.dueDate || 'N/A'}</h6></td>
               <td><a class="btn btn-outline-info" href="./checkout.html?resourceId=${resource._id}">Return</a></td>
             </tr>
@@ -755,13 +755,13 @@ async function fetchBorrowedHistory() {
       scope++;
       rows = `
         <tr>
-          <th scope="row">${scope}</th>
-          <td>⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}</td>
-          <td>${record.resources.copies}</td>
+          <th scope="row"><p class="mb-0">${scope}</p></th>
+          <td><p class="mb-0">⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}</p></td>
+          <td><p class="mb-0">${record.resources.copies}</p></td>
           <td><h5 class"mb-0">${record.resources.title}</h5></td>
-          <td>${record.resources.author}</td>
-          <td>${record.resources.publicationYear}</td>
-          <td>${record.resources.genre}</td>
+          <td><p class="mb-0">${record.resources.author}</p></td>
+          <td><p class="mb-0">${record.resources.publicationYear}</p></td>
+          <td><p class="mb-0">${record.resources.genre}</p></td>
           <td><h6 class="text-success">${record.resources.returnedDate || 'N/A'}</h6></td>
         </tr>
       `;

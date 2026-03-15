@@ -175,8 +175,23 @@ button {
         font-size: 0.9rem;
     }
 
-    #resource h5 {
-        word-wrap: break-word;
+    #resource button,
+    #resource a {
+        font-size: 0.7rem;
+    }
+
+    #resource h5,
+    #resource p {
+        white-space: nowrap; 
+        width: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #resource h5:hover,
+    #resource p:hover {
+        white-space: inherit;
+        overflow: visible;
     }
 }
 
@@ -190,8 +205,18 @@ button {
         font-size: 0.7rem;
     }
 
-    #resource h5 {
-        word-wrap: break-word;
+    #resource h5,
+    #resource p {
+        white-space: nowrap; 
+        width: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #resource h5:hover,
+    #resource p:hover {
+        white-space: inherit;
+        overflow: visible;
     }
 }
 
@@ -205,14 +230,21 @@ button {
         font-size: 0.5rem;
     }
 
-    #resource h5, #resource p {
+    #resource button,
+    #resource a {
+        font-size: 0.3rem;
+    }
+
+    #resource h5,
+    #resource p {
         white-space: nowrap; 
         width: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    #resource h5:hover, #resource p:hover {
+    #resource h5:hover,
+    #resource p:hover {
         white-space: inherit;
         overflow: visible;
     }
