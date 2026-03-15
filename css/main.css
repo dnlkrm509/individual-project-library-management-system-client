@@ -169,16 +169,31 @@ button {
     .item-grid {
         grid-template-columns: repeat(3, 1fr); /* laptop */
     }
+
+    #resource,
+    #resource h5 {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 768px) {
     .item-grid {
         grid-template-columns: repeat(2, 1fr); /* tablet / small screens like iPhone 15 Pro Max */
     }
+
+    #resource,
+    #resource h5 {
+        font-size: 0.5rem;
+    }
 }
 
 @media (max-width: 430px) {
     .item-grid {
         grid-template-columns: repeat(1, 1fr); /* very small phones */
+    }
+
+    #resource,
+    #resource h5 {
+        font-size: 0.3rem;
     }
 }
