@@ -115,7 +115,7 @@ async function search(page, sort) {
           <td>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</td>
           <td>${resource.copies}</td>
           <td><h5 class"mb-0">${resource.title}</h5></td>
-          <td>${resource.author}</td>
+          <td><p class="mb-0">${resource.author}</p></td>
           <td>${resource.publicationYear}</td>
           <td>${resource.genre}</td>
           <td><a class="link-peimary link-opacity-50-hover" href="${detail}?id=${resource._id}">Details</a></td>
