@@ -181,7 +181,7 @@ button {
     }
 
     #resource h5,
-    #resource p {
+    #resource p.mb-0 {
         white-space: nowrap; 
         width: 30px;
         overflow: hidden;
@@ -189,7 +189,7 @@ button {
     }
 
     #resource h5:hover,
-    #resource p:hover {
+    #resource p.mb-0:hover {
         white-space: inherit;
         overflow: visible;
     }
@@ -206,7 +206,7 @@ button {
     }
 
     #resource h5,
-    #resource p {
+    #resource p.mb-0 {
         white-space: nowrap; 
         width: 30px;
         overflow: hidden;
@@ -214,7 +214,7 @@ button {
     }
 
     #resource h5:hover,
-    #resource p:hover {
+    #resource p.mb-0:hover {
         white-space: inherit;
         overflow: visible;
     }
@@ -236,7 +236,7 @@ button {
     }
 
     #resource h5,
-    #resource p {
+    #resource p.mb-0 {
         white-space: nowrap; 
         width: 30px;
         overflow: hidden;
@@ -244,7 +244,7 @@ button {
     }
 
     #resource h5:hover,
-    #resource p:hover {
+    #resource p.mb-0:hover {
         white-space: inherit;
         overflow: visible;
     }

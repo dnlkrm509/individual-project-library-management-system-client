@@ -112,7 +112,7 @@ async function search(page, sort) {
       rows += `
         <tr>
           <th scope="row"><p class="mb-0">${scope}</p></th>
-          <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+          <td><p>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
           <td><p class="mb-0">${resource.copies}</td>
           <td><h5 class"mb-0">${resource.title}</h5></td>
           <td><p class="mb-0">${resource.author}</p></td>
@@ -239,7 +239,7 @@ function getActionButtonHTML(resource, borrowedResources = null) {
   );
 
   if (!hasBorrowed && resource.availableStatus) {
-    return `<button class="btn btn-outline-success" onclick="borrowResource('${resource._id}')">Borrow</button>`;
+    return `<button class="btn btn-outline-success" onclick="borrowResource('${resource._id}')" id="${resource._id}">Borrow</button>`;
   }
 
   if (!hasBorrowed && !resource.availableStatus) {
@@ -349,19 +349,18 @@ async function logout() {
 }
 
 async function borrowResource(resourceId) {
+  const btnElement = document.getElementById(resourceId);
+  console.log(btnElement);
+  
   const token = localStorage.getItem('token');
   if (!token) {
     alert('You must be logged in to borrow resources.');
     return;
   }
 
+  const recordElement = btnElement.closest('tr');
+  console.log(recordElement);
   
-  let borrow = './borrow.html';
-
-  if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-    borrow = "./shop/borrow.html";
-  }
-
   try {
     const response = await fetch(`${API_BASE_URL}/borrow`, {
       method: 'POST',
@@ -372,14 +371,13 @@ async function borrowResource(resourceId) {
       body: JSON.stringify({ resourceId })
     });
 
-    const data = await response.json();
     
     if (!response.ok) {
       throw new Error(data.message || 'Borrow failed');
     }
-
-    window.location.href = borrow;
-
+    
+    const data = await response.json();
+    recordElement.parentNode.removeChild(recordElement);
   } catch (error) {
     console.error(error);
   }
@@ -437,7 +435,7 @@ async function fetchResource() {
     rows += `
       <tr>
         <th scope="row"><p class="mb-0">${scope}</p></th>
-        <td><p class="mb-0">⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}</p></td>
+        <td><p>⭐ ${resourceData.resource.numericRating > 0 ? resourceData.resource.numericRating : 0}</p></td>
         <td><p class="mb-0">${resourceData.resource.copies}</p></td>
         <td><h5 class="mb-0">${resourceData.resource.title}</h5></td>
         <td><p class="mb-0">${resourceData.resource.author}</p></td>
@@ -555,7 +553,7 @@ async function fetchResource() {
       rows += `
         <tr>
           <th scope="row"><p class="mb-0">${scope}</p></th>
-          <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+          <td><p>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
           <td><p class="mb-0">${resource.copies}</p></td>
           <td><h5 class"mb-0">${resource.title}</h5></td>
           <td><p class="mb-0">${resource.relationshipScore}</p></td>
@@ -654,7 +652,7 @@ async function fetchBorrowed() {
           rows += `
             <tr>
               <th scope="row"><p class="mb-0">${scope}</p></th>
-              <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+              <td><p>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
               <td><p class="mb-0">${resource.copies}</p></td>
               <td><h5 class"mb-0">${resource.title}</h5></td>
               <td><p class="mb-0">${resource.author}</p></td>
@@ -756,7 +754,7 @@ async function fetchBorrowedHistory() {
       rows = `
         <tr>
           <th scope="row"><p class="mb-0">${scope}</p></th>
-          <td><p class="mb-0">⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}</p></td>
+          <td><p>⭐ ${record.resources.numericRating > 0 ? record.resources.numericRating : 0}</p></td>
           <td><p class="mb-0">${record.resources.copies}</p></td>
           <td><h5 class"mb-0">${record.resources.title}</h5></td>
           <td><p class="mb-0">${record.resources.author}</p></td>

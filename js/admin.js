@@ -173,7 +173,7 @@ async function fetchResources() {
           <td><p class="mb-0">${resource.publicationYear}</p></td>
           <td><p class="mb-0">${resource.genre}</p></td>
           <td><a class="link-peimary link-opacity-50-hover" href="edit-resource.html?id=${resource._id}">Edit</a></td>
-          <td><button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')">Delete</button></td>
+          <td><button class="btn btn-outline-danger" type="button" onclick="deleteResource('${resource._id}')" id="${resource._id}">Delete</button></td>
         </tr>
       `;
     });
@@ -368,13 +368,17 @@ async function updateResource() {
 }
 
 const deleteResource = async (resourceId) => {
+    const btnElement = document.getElementById(resourceId);
+    // console.log(btnElement);
     const response = await fetch(`${API_BASE_URL}/admin/resource/` + resourceId, {
         method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
     })
-    
+
+    const recordElement = btnElement.closest('tr');
+    // console.log(recordElement);
     if (!response.ok) {
       const errorData = await response.json();
       console.log(`Error: ${errorData.message || 'Something went wrong.'}`);
@@ -383,5 +387,5 @@ const deleteResource = async (resourceId) => {
 
     const data = await response.json();
     console.log(data);
-    window.location.href = './resources.html'
+    recordElement.parentNode.removeChild(recordElement);
 };
