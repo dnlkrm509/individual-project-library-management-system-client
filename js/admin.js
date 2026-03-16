@@ -166,7 +166,7 @@ async function fetchResources() {
       rows += `
         <tr>
           <th scope="row"><p class="mb-0">${scope}</p></th>
-          <td><p class="mb-0">⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
+          <td><p>⭐ ${resource.numericRating > 0 ? resource.numericRating : 0}</p></td>
           <td><p class="mb-0">${resource.copies}</p></td>
           <td><h5 class"mb-0">${resource.title}</h5></td>
           <td><p class="mb-0">${resource.author}</p></td>
